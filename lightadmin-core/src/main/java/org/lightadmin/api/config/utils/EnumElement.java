@@ -16,6 +16,8 @@
 package org.lightadmin.api.config.utils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnumElement implements Serializable {
 
@@ -48,5 +50,14 @@ public class EnumElement implements Serializable {
     public static EnumElement element(String value, String label) {
         return new EnumElement(value, label);
     }
+    
+	public static EnumElement[] enumElements(Class<? extends Enum<?>> clazz){
+		List<EnumElement> els = new ArrayList<EnumElement>();
+		for(Enum<?> el : clazz.getEnumConstants()){
+			els.add(EnumElement.element(el.name(), el.name()));
+		}
+		return els.toArray(new EnumElement[]{});
+	}
+	
 
 }

@@ -17,6 +17,7 @@ package org.lightadmin.core.config.domain.unit.processor;
 
 import org.lightadmin.api.config.builder.FieldSetConfigurationUnitBuilder;
 import org.lightadmin.api.config.unit.FieldSetConfigurationUnit;
+import org.lightadmin.api.config.utils.EnumElement;
 import org.lightadmin.core.config.domain.common.GenericFieldSetConfigurationUnitBuilder;
 import org.lightadmin.core.config.domain.unit.ConfigurationUnit;
 import org.lightadmin.core.config.domain.unit.ConfigurationUnits;
@@ -66,10 +67,14 @@ public class EmptyConfigurationUnitPostProcessor extends MappingContextAwareConf
 
         return fieldSetConfigurationUnitBuilder.build();
     }
-
-    private void addField(PersistentProperty<?> property, FieldSetConfigurationUnitBuilder fieldSetConfigurationUnitBuilder) {
+    
+    @SuppressWarnings("unchecked")
+	private void addField(PersistentProperty<?> property, FieldSetConfigurationUnitBuilder fieldSetConfigurationUnitBuilder) {
         if (isSupportedAttributeType(PersistentPropertyType.forPersistentProperty(property))) {
             fieldSetConfigurationUnitBuilder.field(property.getName()).caption(capitalize(property.getName()));
+            if(PersistentPropertyType.ENUM.equals(PersistentPropertyType.forPersistentProperty(property))){
+            	fieldSetConfigurationUnitBuilder.enumeration(EnumElement.enumElements((Class<? extends Enum<?>>) property.getActualType()));
+            }
         }
     }
 
