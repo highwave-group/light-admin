@@ -50,6 +50,7 @@ public enum PersistentPropertyType {
     ENUM,
     EMBEDDED,
     MAP,
+    COLLECTION,
     UNKNOWN;
 
     public static PersistentPropertyType forPersistentProperty(PersistentProperty persistentProperty) {
@@ -74,6 +75,10 @@ public enum PersistentPropertyType {
             return ENUM;
         }
 
+        if (persistentProperty.isCollectionLike()) {
+        	return PersistentPropertyType.COLLECTION;
+        }
+        
         if (forType(attrType) == STRING && persistentProperty.isAnnotationPresent(FileReference.class)) {
             return PersistentPropertyType.FILE;
         }

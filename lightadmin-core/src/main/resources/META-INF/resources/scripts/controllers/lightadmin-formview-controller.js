@@ -161,14 +161,30 @@ function LoadDomainEntityAction(resourceName) {
             var property = fields[fieldIdx];
             var propertyName = property['name'];
             var propertyType = property['type'];
-
-            var editor = form.find('[name="' + propertyName + '"]');
-            if (editor.length == 0) {
-                continue;
-            }
-
+            
             var propertyValue = domainEntity.getPropertyValue(property, 'formView');
             if (propertyValue == null) {
+                continue;
+            }
+            
+            var editors = form.find('[name="' + propertyName + '[]"]');
+            if (editors.length > 0) {
+            	var lastEditor = $(editors[0]);
+            	for (var propertyValueIdx in propertyValue) {
+                    var ePropertyValue = propertyValue[propertyValueIdx];
+                    if(ePropertyValue != null){
+                    	lastEditor.val(ePropertyValue);
+                    	nextEditor = $("<input name='"+propertyName+"[]' type='text' />");
+                    	lastEditor.after(nextEditor);
+                        lastEditor.after("<br />");
+                        lastEditor = nextEditor;
+                    }
+            	}
+                continue;
+            }
+            
+            var editor = form.find('[name="' + propertyName + '"]');
+            if (editor.length == 0) {
                 continue;
             }
 
