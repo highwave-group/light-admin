@@ -233,6 +233,26 @@ Voila! You have a brand new LightAdmin back-end configured.
 
 		$ mvn clean install
 
+## Run Test Suite
+
+1. Navigate into the sandbox directory:
+
+		$ cd light-admin/lightadmin-sandbox
+
+2. Run sandbox project:
+
+		$ mvn tomcat7:run
+
+3. (In other terminal session) Navigate to tests directory
+
+		$ cd light-admin/lightadmin-sandbox
+
+2. Run test suite:
+
+		$ mvn -Dmode=test integration-test
+
+	You can use `selenium.browser` property to select browser the use in the tests. Default is `firefox`. Also supports `chrome` and `safari`.
+
 ## Running from the Command Line
 
 By default, the app will run in 'embedded' mode which does not require any external setup. The Tomcat 7 Maven plugin is configured for you in the POM file.

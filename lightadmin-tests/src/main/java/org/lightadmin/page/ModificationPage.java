@@ -122,7 +122,7 @@ public abstract class ModificationPage<P extends SecuredPage<P>> extends Secured
 		if ( theSelect.getAttribute( "class" ).contains( "multi" ) ) {
 			return new MultiSelect( theSelect, seleniumContext );
 		} else
-			return new SmartSelect( theSelect.findElement( By.xpath( "a" ) ), seleniumContext );
+			return new SmartSelect( theSelect, seleniumContext );
 	}
 
 	private WebElement getMultiSelectElement( String fieldName ) {
