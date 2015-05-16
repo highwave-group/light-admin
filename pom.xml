@@ -18,7 +18,9 @@
     </properties>
 
     <modules>
+        <module>lightadmin-core</module>
         <module>lightadmin-sandbox</module>
+        <module>lightadmin-boot</module>        
         <module>lightadmin-tests</module>
     </modules>
 
