@@ -118,9 +118,9 @@
 
         <!-- LA  has Newer Versions -->
 
-        <javax.servlet-api.version>3.1.0</javax.servlet-api.version> <!-- 3.0.1 -->
-        <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version> <!-- 2.2.1 -->
-        <guava.version>18.0</guava.version> <!-- 17.0 -->
+        <!--<javax.servlet-api.version>3.0.1</javax.servlet-api.version> &lt;!&ndash; 3.0.1 &ndash;&gt;-->
+        <!--<javax.servlet.jsp-api.version>2.2.1</javax.servlet.jsp-api.version> &lt;!&ndash; 2.2.1 &ndash;&gt;-->
+        <!--<guava.version>18.0</guava.version> &lt;!&ndash; 17.0 &ndash;&gt;-->
         
         <!-- LA has Older Version -->
 
@@ -294,7 +294,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -416,13 +416,13 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api.version}</version>
+
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>${javax.servlet.jsp-api.version}</version>
+
             <scope>provided</scope>
         </dependency>
 
