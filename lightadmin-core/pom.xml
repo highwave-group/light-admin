@@ -116,6 +116,9 @@
 
         <jstl.version>1.2</jstl.version>
 
+<!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#_org_hibernate_javax_persistence_hibernate_jpa_2_0_api -->
+        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version> <!--1.0.1.Final-->
+
         <!-- LA  has Newer Versions -->
 
         <!--<javax.servlet-api.version>3.0.1</javax.servlet-api.version> &lt;!&ndash; 3.0.1 &ndash;&gt;-->
@@ -125,16 +128,16 @@
         <!-- LA has Older Version -->
 
         <apache.tiles.version>2.2.2</apache.tiles.version> <!--3.0.5-->
-        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version> <!--1.0.1.Final-->
-        <joda-time.version>2.3</joda-time.version> <!-- 2.5 -->
-        <hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version> <!-- 4.3.8.Final -->
-        <hibernate-validator.version>5.0.3.Final</hibernate-validator.version> <!-- 5.1.3.Final -->
-        <jackson.version>2.3.4</jackson.version> <!-- 2.4.5 -->
-        <slf4j.version>1.7.7</slf4j.version> <!-- 1.7.11 -->
-        <logback.version>1.1.2</logback.version> <!-- 1.1.3 -->
+
+        <!--<joda-time.version>2.3</joda-time.version> &lt;!&ndash; 2.5 &ndash;&gt;-->
+        <!--<hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version> &lt;!&ndash; 4.3.8.Final &ndash;&gt;-->
+        <!--<hibernate-validator.version>5.0.3.Final</hibernate-validator.version> &lt;!&ndash; 5.1.3.Final &ndash;&gt;-->
+        <!--<jackson.version>2.3.4</jackson.version> &lt;!&ndash; 2.4.5 &ndash;&gt;-->
+        <!--<slf4j.version>1.7.7</slf4j.version> &lt;!&ndash; 1.7.11 &ndash;&gt;-->
+        <!--<logback.version>1.1.2</logback.version> &lt;!&ndash; 1.1.3 &ndash;&gt;-->
         
         
-        <!-- not included within spring-platform 1.1.2 -->
+        <!-- not included within spring-platform 1.1.2, no need to up/downgrade -->
         <commons-collections4.version>4.0</commons-collections4.version> <!-- none -->
         <imgscalr-lib.version>4.2</imgscalr-lib.version> <!-- none -->
         <tika-core.version>1.4</tika-core.version> <!-- none -->
@@ -151,6 +154,10 @@
         <maven>3.0.0</maven>
     </prerequisites>
 
+    <!-- http://platform.spring.io/platform/
+         using this, the version-numbers contained within the platform-bom do not need to be mentioned when including a
+         dependency. This ensures interoperability across modules -->
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -162,6 +169,8 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <!-- version-numbers are provided by the above dependencyManagement -->
 
     <dependencies>
         <dependency>
@@ -253,7 +262,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate-validator.version}</version>
+
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -329,7 +338,7 @@
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-            <version>${joda-time.version}</version>
+
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
@@ -349,27 +358,27 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
+
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
+
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
+
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
-            <version>${jackson.version}</version>
+
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>
-            <version>${jackson.version}</version>
+
         </dependency>
 
         <dependency>
@@ -429,7 +438,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
+
         </dependency>
 
         <dependency>
@@ -441,7 +450,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-entitymanager.version}</version>
+
             <scope>test</scope>
         </dependency>
         <dependency>
