@@ -116,6 +116,24 @@
 
         <jstl.version>1.2</jstl.version>
 
+        <!-- needs update to 1.2.1
+
+            delete the above property
+            change the content of this pom and solve code-level errors:
+
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <version>1.2.1</version>
+
+            note: cannot use ${javax.servlet.jsp.jstl-api} above, as property *not* inherited
+            http://stackoverflow.com/questions/27840969/spring-io-platform-bill-of-materials-custom-version
+
+        -->
+
+
 <!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#_org_hibernate_javax_persistence_hibernate_jpa_2_0_api -->
         <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version> <!--1.0.1.Final-->
 
@@ -127,6 +145,7 @@
         
         <!-- LA has Older Version -->
 
+        <!-- apache.tiles update needs some code-level work -->
         <apache.tiles.version>2.2.2</apache.tiles.version> <!--3.0.5-->
 
         <!--<joda-time.version>2.3</joda-time.version> &lt;!&ndash; 2.5 &ndash;&gt;-->
