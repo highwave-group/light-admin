@@ -18,10 +18,8 @@
     <properties>
         <container.port>8080</container.port>
 
-        <spring.version>4.1.0.RELEASE</spring.version>
-        <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
         <slf4j-api.version>1.7.7</slf4j-api.version>
-        <logback-classic.version>1.1.2</logback-classic.version>
+
         <selenium-java.version>2.32.0</selenium-java.version>
         <guava.version>18.0</guava.version>
         <xml-apis.version>1.4.01</xml-apis.version>
@@ -54,7 +52,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback-classic.version}</version>
+            <version>${logback.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
