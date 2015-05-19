@@ -107,8 +107,8 @@
 
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+            <version>${javax-jstl.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -122,8 +122,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>jstl-impl</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <version>${javax-jstl.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>

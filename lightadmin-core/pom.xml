@@ -112,26 +112,14 @@
         <!--<javassist.version>3.18.1-GA</javassist.version>-->
         <!--<junit.version>4.11</junit.version>        -->
 
-        <!-- not sure about this one -->
-
-        <jstl.version>1.2</jstl.version>
-
-        <!-- needs update to 1.2.1
-
-            delete the above property
-            change the content of this pom and solve code-level errors:
-
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.servlet.jsp.jstl</artifactId>
-            <version>1.2.1</version>
-
-            note: cannot use ${javax.servlet.jsp.jstl-api} above, as property *not* inherited
+        <!-- javax-jstl.version
+            note: must redefine ${javax-jstl.version} above, as property *not* inherited
             http://stackoverflow.com/questions/27840969/spring-io-platform-bill-of-materials-custom-version
-
         -->
+
+        <!-- remove this, when spring-platform is made parent-pom -->
+        <!-- update this, when updating spring-platform javax-jstl.version -->
+        <javax-jstl.version>1.2.1</javax-jstl.version>
 
         <!-- LA  has Newer Versions -->
 
@@ -408,8 +396,7 @@
 
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -423,8 +410,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>jstl-impl</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <version>${javax-jstl.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
