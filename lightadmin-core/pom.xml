@@ -133,10 +133,6 @@
 
         -->
 
-
-<!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#_org_hibernate_javax_persistence_hibernate_jpa_2_0_api -->
-        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version> <!--1.0.1.Final-->
-
         <!-- LA  has Newer Versions -->
 
         <!--<javax.servlet-api.version>3.0.1</javax.servlet-api.version> &lt;!&ndash; 3.0.1 &ndash;&gt;-->
@@ -272,9 +268,8 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>${hibernate-jpa-2.1-api.version}</version>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
             <optional>true</optional>
         </dependency>
 
