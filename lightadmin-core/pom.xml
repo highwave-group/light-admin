@@ -4,6 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>lightadmin-parent</artifactId>
+        <groupId>org.lightadmin</groupId>
+        <version>1.1.0.BUILD-SNAPSHOT</version>
+    </parent>
+
     <groupId>org.lightadmin</groupId>
     <artifactId>lightadmin</artifactId>
     <packaging>jar</packaging>
@@ -94,22 +100,11 @@
         <maven.compiler.target>1.7</maven.compiler.target>
 
         <!--
-          comparing versions to spring-platform 1.1.2, which is the current, and corresponds to current boot 1.2.3
-          no comment = same version. / "none" = not included in spring-platform
           http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#appendix-dependency-versions
         -->
 
-        <!-- javax-jstl.version
-            note: must redefine ${javax-jstl.version} above, as property *not* inherited
-            http://stackoverflow.com/questions/27840969/spring-io-platform-bill-of-materials-custom-version
-        -->
-
-        <!-- remove this, when spring-platform is made parent-pom -->
-        <!-- update this, when updating spring-platform javax-jstl.version -->
-        <javax-jstl.version>1.2.1</javax-jstl.version>
-
         <!-- apache.tiles update needs some code-level work for update to 3.0.5 -->
-        <apache.tiles.version>2.2.2</apache.tiles.version> <!--3.0.5-->
+        <tiles.version>2.2.2</tiles.version> <!--3.0.5-->
 
         <!-- not included within spring-platform 1.1.2, no need to up/downgrade -->
         <commons-collections4.version>4.0</commons-collections4.version> <!-- none -->
@@ -127,23 +122,15 @@
         <maven>3.0.0</maven>
     </prerequisites>
 
-    <!-- http://platform.spring.io/platform/
-         using this, the version-numbers contained within the platform-bom do not need to be mentioned when including a
-         dependency. This ensures interoperability across modules -->
-
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>1.1.2.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-template</artifactId>
+                <version>${tiles.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <!-- version-numbers are provided by the above dependencyManagement -->
 
     <dependencies>
         <dependency>
@@ -231,32 +218,26 @@
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-core</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-api</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-template</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-servlet</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-el</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
 
         <dependency>
