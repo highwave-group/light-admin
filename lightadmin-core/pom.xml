@@ -4,6 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <artifactId>lightadmin-parent</artifactId>
+        <groupId>org.lightadmin</groupId>
+        <version>1.1.0.BUILD-SNAPSHOT</version>
+    </parent>
+
     <groupId>org.lightadmin</groupId>
     <artifactId>lightadmin</artifactId>
     <packaging>jar</packaging>
@@ -93,50 +99,8 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <!--
-          comparing versions to spring-platform 1.1.2, which is the current, and corresponds to current boot 1.2.3
-          no comment = same version. / "none" = not included in spring-platform
-          http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#appendix-dependency-versions
-        -->
+        <!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#appendix-dependency-versions -->
 
-        <!-- Same Versions -->
-
-        <!--<spring.version>4.1.6.RELEASE</spring.version>-->
-        <!--<spring.security.version>3.2.7.RELEASE</spring.security.version>-->
-        <!--<spring.data.jpa.version>1.7.2.RELEASE</spring.data.jpa.version>-->
-        <!--<spring.data.rest.webmvc.version>2.2.2.RELEASE</spring.data.rest.webmvc.version>-->
-        <!--<validation-api.version>1.1.0.Final</validation-api.version>-->
-        <!--<commons-lang3.version>3.3.2</commons-lang3.version>-->
-        <!--<commons-fileupload.version>1.3.1</commons-fileupload.version>-->
-        <!--<commons-io.version>2.4</commons-io.version>-->
-        <!--<javassist.version>3.18.1-GA</javassist.version>-->
-        <!--<junit.version>4.11</junit.version>        -->
-
-        <!-- not sure about this one -->
-
-        <jstl.version>1.2</jstl.version>
-
-<!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#_org_hibernate_javax_persistence_hibernate_jpa_2_0_api -->
-        <hibernate-jpa-2.1-api.version>1.0.0.Final</hibernate-jpa-2.1-api.version> <!--1.0.1.Final-->
-
-        <!-- LA  has Newer Versions -->
-
-        <!--<javax.servlet-api.version>3.0.1</javax.servlet-api.version> &lt;!&ndash; 3.0.1 &ndash;&gt;-->
-        <!--<javax.servlet.jsp-api.version>2.2.1</javax.servlet.jsp-api.version> &lt;!&ndash; 2.2.1 &ndash;&gt;-->
-        <!--<guava.version>18.0</guava.version> &lt;!&ndash; 17.0 &ndash;&gt;-->
-        
-        <!-- LA has Older Version -->
-
-        <apache.tiles.version>2.2.2</apache.tiles.version> <!--3.0.5-->
-
-        <!--<joda-time.version>2.3</joda-time.version> &lt;!&ndash; 2.5 &ndash;&gt;-->
-        <!--<hibernate-entitymanager.version>4.3.6.Final</hibernate-entitymanager.version> &lt;!&ndash; 4.3.8.Final &ndash;&gt;-->
-        <!--<hibernate-validator.version>5.0.3.Final</hibernate-validator.version> &lt;!&ndash; 5.1.3.Final &ndash;&gt;-->
-        <!--<jackson.version>2.3.4</jackson.version> &lt;!&ndash; 2.4.5 &ndash;&gt;-->
-        <!--<slf4j.version>1.7.7</slf4j.version> &lt;!&ndash; 1.7.11 &ndash;&gt;-->
-        <!--<logback.version>1.1.2</logback.version> &lt;!&ndash; 1.1.3 &ndash;&gt;-->
-        
-        
         <!-- not included within spring-platform 1.1.2, no need to up/downgrade -->
         <commons-collections4.version>4.0</commons-collections4.version> <!-- none -->
         <imgscalr-lib.version>4.2</imgscalr-lib.version> <!-- none -->
@@ -146,31 +110,8 @@
         <usertype.jadira.version>3.2.0.GA</usertype.jadira.version><!-- none -->
         <joda-time.hibernate.version>1.3</joda-time.hibernate.version><!-- none -->
         <easymock.version>3.2</easymock.version><!-- none -->
-        
-        
+
     </properties>
-
-    <prerequisites>
-        <maven>3.0.0</maven>
-    </prerequisites>
-
-    <!-- http://platform.spring.io/platform/
-         using this, the version-numbers contained within the platform-bom do not need to be mentioned when including a
-         dependency. This ensures interoperability across modules -->
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.spring.platform</groupId>
-                <artifactId>platform-bom</artifactId>
-                <version>1.1.2.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- version-numbers are provided by the above dependencyManagement -->
 
     <dependencies>
         <dependency>
@@ -188,127 +129,106 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-webmvc</artifactId>
-
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>${hibernate-jpa-2.1-api.version}</version>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
             <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-
         </dependency>
+
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-
         </dependency>
 
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-core</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-api</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-template</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-servlet</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-jsp</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tiles</groupId>
             <artifactId>tiles-el</artifactId>
-            <version>${apache.tiles.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -318,13 +238,12 @@
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-
         </dependency>
+
         <dependency>
             <groupId>net.sourceforge.collections</groupId>
             <artifactId>collections-generic</artifactId>
@@ -335,16 +254,17 @@
             <artifactId>ehcache-web</artifactId>
             <version>${ehcache-web.version}</version>
         </dependency>
+
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
-
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time-hibernate</artifactId>
             <version>${joda-time.hibernate.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
@@ -355,30 +275,26 @@
             <artifactId>usertype.spi</artifactId>
             <version>${usertype.jadira.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-joda</artifactId>
-
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>
-
         </dependency>
 
         <dependency>
@@ -386,6 +302,7 @@
             <artifactId>imgscalr-lib</artifactId>
             <version>${imgscalr-lib.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-core</artifactId>
@@ -394,8 +311,7 @@
 
         <dependency>
             <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>jstl-api</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -409,8 +325,8 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.web</groupId>
-            <artifactId>jstl-impl</artifactId>
-            <version>${jstl.version}</version>
+            <artifactId>javax.servlet.jsp.jstl</artifactId>
+            <version>${javax-jstl.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -425,38 +341,32 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>
-
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-
         </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-
             <scope>test</scope>
         </dependency>
         <dependency>
