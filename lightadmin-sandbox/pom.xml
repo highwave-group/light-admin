@@ -25,12 +25,10 @@
         <dependency>
             <groupId>org.lightadmin</groupId>
             <artifactId>lightadmin</artifactId>
-            <version>${lightadmin.version}</version>
         </dependency>
         <dependency>
             <groupId>org.lightadmin</groupId>
             <artifactId>light-logging-configurer</artifactId>
-            <version>${light-logging-configurer.version}</version>
         </dependency>
 
         <dependency>
@@ -110,7 +108,6 @@
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>javax.servlet.jsp.jstl</artifactId>
-            <version>${javax-jstl.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>

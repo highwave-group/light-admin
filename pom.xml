@@ -27,13 +27,43 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <lightadmin.version>1.1.0.BUILD-SNAPSHOT</lightadmin.version>
+        <lightadmin.version>${project.version}</lightadmin.version>
 
         <light-logging-configurer.version>1.0.0.BUILD-SNAPSHOT</light-logging-configurer.version>
 
-        <!-- override spring-platform 3.0.5 -->
-        <tiles.version>2.2.2</tiles.version>
+        <!-- apache.tiles update needs some code-level work for update to 3.0.5 -->
+        <tiles.version>2.2.2</tiles.version> <!-- remove, once tiles updated to 3.0.5 -->
     </properties>
+
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency> <!-- remove, once tiles updated to 3.0.5 -->
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-template</artifactId>
+                <version>${tiles.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lightadmin</groupId>
+                <artifactId>lightadmin</artifactId>
+                <version>${lightadmin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.lightadmin</groupId>
+                <artifactId>light-logging-configurer</artifactId>
+                <version>${light-logging-configurer.version}</version>
+            </dependency>
+
+            <dependency> <!-- if possible, migrate to something which is defined in spring-platform-bom -->
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>javax.servlet.jsp.jstl</artifactId>
+                <version>${javax-jstl.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <modules>
         <module>lightadmin-core</module>

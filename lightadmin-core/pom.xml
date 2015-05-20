@@ -99,12 +99,7 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <!--
-          http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#appendix-dependency-versions
-        -->
-
-        <!-- apache.tiles update needs some code-level work for update to 3.0.5 -->
-        <tiles.version>2.2.2</tiles.version> <!--3.0.5-->
+        <!-- http://docs.spring.io/platform/docs/1.1.2.RELEASE/reference/htmlsingle/#appendix-dependency-versions -->
 
         <!-- not included within spring-platform 1.1.2, no need to up/downgrade -->
         <commons-collections4.version>4.0</commons-collections4.version> <!-- none -->
@@ -117,20 +112,6 @@
         <easymock.version>3.2</easymock.version><!-- none -->
 
     </properties>
-
-    <prerequisites>
-        <maven>3.0.0</maven>
-    </prerequisites>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.tiles</groupId>
-                <artifactId>tiles-template</artifactId>
-                <version>${tiles.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
