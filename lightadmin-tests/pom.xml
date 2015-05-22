@@ -18,7 +18,7 @@
     <properties>
         <container.port>8080</container.port>
 
-        <selenium-java.version>2.32.0</selenium-java.version>
+        <selenium-java.version>2.45.0</selenium-java.version>
         <xml-apis.version>1.4.01</xml-apis.version>
 
     </properties>
