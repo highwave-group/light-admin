@@ -15,23 +15,39 @@ by bringing pluggable fully operational data management back-end for JPA based a
 
 ## Running from the Command Line
 
+The simples way of producing a spring application is spring-boot. lightadmin-boot is a demo application, using spring-boot & lightadmin. To start:
+
+```
+cd lightadmin-boot
+mvn spring-boot:run
+```
+
 The `sandbox` example runs in 'embedded' mode, which does not require any external setup. The Tomcat 7 Maven plugin is configured for you in the POM file.
 
 - $ cd lightadmin-sandbox
 - $ mvn tomcat7:run
 - [http://localhost:8080/lightadmin-sandbox](http://localhost:8080/lightadmin-sandbox)
-- 
-## Run Test Suite
 
-1. Navigate into the sandbox directory:
+## Compile and Run Tests
 
-- $ cd light-admin/lightadmin-sandbox
-- $ mvn tomcat7:run
-- (In other terminal session)
-- $ cd light-admin/lightadmin-test
-- $ mvn -Dmode=test integration-test
+This makes a clean build, installs and runs the integrations test on an automaticly started jetty server:
+
+```
+mvn clean install integration-test -Ptest-mode
+```
+
+Another way to start the tests is by starting the application manually with tomcat.
+
+```
+cd lightadmin-sandbox
+mvn tomcat7:run
+(in another shell)
+cd lightadmin-tests
+mvn integration-test -Pmode-test
+```
 
 You can use `selenium.browser` property to select browser the use in the tests. Default is `firefox`. Also supports `chrome` and `safari`.
+
 
 ## Integration examples ##
 
@@ -57,21 +73,16 @@ You can use `selenium.browser` property to select browser the use in the tests. 
 * <b>LightAdmin</b> is released under version 2.0 of the Apache License.
 
 ### Development ###
-* Code Repo:   [http://github.com/la-team/light-admin](http://github.com/la-team/light-admin)
-* Issues: [github.com/la-team/light-admin/issues](http://github.com/la-team/light-admin/issues)
-* Wiki: [github.com/la-team/light-admin/wiki](http://github.com/la-team/light-admin/wiki)
-* CI Server:   [lightadmin.org/jenkins](http://lightadmin.org/jenkins)
+* [http://github.com/la-team/light-admin](http://github.com/la-team/light-admin)
+* [lightadmin.org/jenkins](http://lightadmin.org/jenkins)
 
 ## Contribute ##
 
 Contribution follows the usual workflow:
 
 * Fork & Clone, use a branch for bigger changes or longer lasting work
-* If necessary, rebase your commits into logical chunks, without errors
 * Verify your code by running the test suite, and adding additional tests if able
 * Push to your Fork & create a PR (Pull Request)
-
-We'll do our best to get your changes in!
 
 ## Getting started ##
 
