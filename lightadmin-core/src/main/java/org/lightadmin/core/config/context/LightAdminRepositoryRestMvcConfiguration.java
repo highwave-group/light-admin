@@ -15,9 +15,13 @@
  */
 package org.lightadmin.core.config.context;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static com.google.common.collect.Lists.newLinkedList;
+import static org.springframework.beans.PropertyAccessorFactory.forDirectFieldAccess;
+import static org.springframework.util.ClassUtils.isAssignableValue;
+
+import java.util.List;
+
 import org.lightadmin.core.config.LightAdminConfiguration;
-import org.lightadmin.core.config.bootstrap.RepositoriesFactoryBean;
 import org.lightadmin.core.config.domain.GlobalAdministrationConfiguration;
 import org.lightadmin.core.persistence.repository.event.FileManipulationRepositoryEventListener;
 import org.lightadmin.core.persistence.repository.invoker.DynamicRepositoryInvokerFactory;
@@ -25,14 +29,16 @@ import org.lightadmin.core.persistence.support.DynamicDomainObjectMerger;
 import org.lightadmin.core.storage.FileResourceStorage;
 import org.lightadmin.core.web.json.DomainTypeToJsonMetadataConverter;
 import org.lightadmin.core.web.json.LightAdminJacksonModule;
-import org.lightadmin.core.web.support.*;
-import org.springframework.beans.BeanInstantiationException;
+import org.lightadmin.core.web.support.ConfigurationHandlerMethodArgumentResolver;
+import org.lightadmin.core.web.support.DomainEntityLinks;
+import org.lightadmin.core.web.support.DynamicPersistentEntityResourceAssemblerArgumentResolver;
+import org.lightadmin.core.web.support.DynamicPersistentEntityResourceProcessor;
+import org.lightadmin.core.web.support.DynamicRepositoryEntityLinks;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.core.invoke.RepositoryInvokerFactory;
@@ -44,11 +50,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
-import java.util.List;
-
-import static com.google.common.collect.Lists.newLinkedList;
-import static org.springframework.beans.PropertyAccessorFactory.forDirectFieldAccess;
-import static org.springframework.util.ClassUtils.isAssignableValue;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
 @ComponentScan(basePackages = {"org.lightadmin.core.web"},
@@ -76,15 +78,6 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
     @Bean
     public DomainTypeToJsonMetadataConverter domainTypeToJsonMetadataConverter() {
         return new DomainTypeToJsonMetadataConverter(globalAdministrationConfiguration(), entityLinks());
-    }
-
-    @Bean
-    public Repositories repositories() {
-        try {
-            return new RepositoriesFactoryBean(beanFactory).getObject();
-        } catch (Exception e) {
-            throw new BeanInstantiationException(Repositories.class, "Repositories bean instantiation problem!", e);
-        }
     }
 
     @Bean
