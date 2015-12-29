@@ -7,6 +7,6 @@
 <!-- Footer -->
 <div id="footer">
     <div class="wrapper">
-        <span><a href="http://lightadmin.org" title="LightAdmin"><spring:message code="application.copyright"/>.</a> All rights reserved.</span>
+        <span><a href="<spring:message code="lightadmin.application.copyright.link"/>" title="<spring:message code="lightadmin.application.shortname"/>"><spring:message code="lightadmin.application.copyright"/>.</a> All rights reserved.</span>
     </div>
 </div>

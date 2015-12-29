@@ -7,6 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="bean" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -18,7 +19,7 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
 
-    <title>LightAdmin - Web administration framework.</title>
+    <title><bean:message key="lightadmin.application.external.name"/></title>
 
     <link rel="stylesheet" type="text/css" href="<light:url value="/styles/main.css"/>">
     <link rel="stylesheet" type="text/css" href="<light:url value="/styles/lightadmin.css"/>">

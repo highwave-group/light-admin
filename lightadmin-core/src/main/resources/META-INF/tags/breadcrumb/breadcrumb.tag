@@ -11,7 +11,7 @@
     <div class="breadCrumb module">
         <ul id="breadcrumb">
             <li class="firstB">
-                <a href="<light:url value="/dashboard"/>"><spring:message code="application.menu.dashboard"/></a></li>
+                <a href="<light:url value="/dashboard"/>"><spring:message code="lightadmin.application.menu.dashboard"/></a></li>
 
             <c:forEach var="breadcrumbItem" items="${tag_breadcrumb_breadcrumbItems}" varStatus="status">
                 <jsp:useBean id="breadcrumbItem" type="org.apache.tiles.beans.MenuItem"/>

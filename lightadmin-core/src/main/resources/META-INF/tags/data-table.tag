@@ -25,6 +25,7 @@
 <spring:message code="page.first" var="page_first"/>
 <spring:message code="page.last" var="page_last"/>
 <spring:message code="are.you.sure" var="are_sure"/>
+<spring:message code="items.per.page" var="items_per_page"/>
 
 <spring:message code="edit" var="edit"/>
 <spring:message code="remove" var="remove"/>
@@ -106,7 +107,7 @@
             "sPaginationType": "full_numbers",
             "oLanguage": {
                 "sProcessing": "${processing}",
-                "sLengthMenu": "<span class='itemsPerPage'>Items per page:</span> <span style='font-size: 11px;'>_MENU_</span>",
+                "sLengthMenu": "<span class='itemsPerPage'>${items_per_page}</span> <span style='font-size: 11px;'>_MENU_</span>",
                 "sZeroRecords": "${no_matching}",
                 "sEmptyTable": "${no_data}",
                 "sLoadingRecords": "${loading}",
@@ -115,7 +116,7 @@
                 "sInfoFiltered": "(_MAX_ in total)",
                 "sInfoPostFix": "",
                 "sInfoThousands": ",",
-                "sSearch": "${search}",
+                "sSearch": "${search}:",
                 "sUrl": "",
                 "oPaginate": {
                     "sFirst": "${page_first}",

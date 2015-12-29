@@ -9,6 +9,7 @@
 <tiles:importAttribute name="lightAdminConfiguration" ignore="true"/>
 
 <spring:message code="back.to.site" var="back_to_site"/>
+<spring:message code="lightadmin.application.menu.help" var="help"/>
 
 <div id="topNav">
     <div class="fixed">
@@ -41,7 +42,7 @@
             <div class="userNav">
                 <ul>
                     <li>
-                        <a href="<c:out value='${lightAdminConfiguration.helpUrl}'/>"><img src="<light:url value='/images/icons/topnav/help.png'/>" alt=""><span>Help</span></a>
+                        <a href="<c:out value='${lightAdminConfiguration.helpUrl}'/>"><img src="<light:url value='/images/icons/topnav/help.png'/>" alt=""><span>${help}</span></a>
                     </li>
                 </ul>
             </div>

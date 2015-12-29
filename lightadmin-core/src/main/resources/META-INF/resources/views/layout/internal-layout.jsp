@@ -20,7 +20,7 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
 
-    <title><spring:message code="application.name"/>
+    <title><spring:message code="lightadmin.application.name"/>
         <c:out value="${ not empty(screenContext) ? screenContext.screenName : ''}"/></title>
 
     <link rel="stylesheet" type="text/css" href="<light:url value="/styles/main.css"/>">
