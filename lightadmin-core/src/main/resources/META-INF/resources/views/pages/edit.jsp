@@ -51,8 +51,15 @@
                 <div id="${fieldEntry.uuid}-control-group" class="rowElem ${status.first ? 'noborder' : ''}">
                     <label>
                         <strong>
-                            <c:out value="${light:capitalize(fieldEntry.name)}"/>:<c:if
-                                test="${fieldEntry.required}"><span class="req">*</span></c:if>
+                            <c:choose>
+                                <c:when test="${!fieldEntry.i18n}">
+                                    <c:out value="${light:capitalize(fieldEntry.name)}"/>
+                                </c:when>
+                                <c:otherwise>
+                                    <spring:message code="${fieldEntry.name}"/>
+                                </c:otherwise>
+                            </c:choose>:
+                            <c:if test="${fieldEntry.required}"><span class="req">*</span></c:if>
                         </strong>
                     </label>
 

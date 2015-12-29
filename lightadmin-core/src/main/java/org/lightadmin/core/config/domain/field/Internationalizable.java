@@ -15,15 +15,9 @@
  */
 package org.lightadmin.core.config.domain.field;
 
-public interface FieldMetadata extends Identifiable, Nameable, Internationalizable {
+public interface Internationalizable {
+	boolean isI18n();
 
-    boolean isSortable();
+	void setI18n(boolean i18n);
 
-    int getSortOrder();
-
-    void setSortOrder(int sortOrder);
-
-    Object getValue(Object entity);
-
-    boolean isDynamic();
 }

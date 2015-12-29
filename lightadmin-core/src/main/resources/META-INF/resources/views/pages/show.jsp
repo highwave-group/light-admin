@@ -45,7 +45,16 @@
         <tbody id="data-section">
         <c:forEach var="field" items="${fields}" varStatus="status">
             <tr class="${status.first ? 'noborder' : ''}">
-                <td width="30%" align="right"><strong><c:out value="${field.name}"/>:</strong></td>
+                <td width="30%" align="right"><strong>
+                    <c:choose>
+                        <c:when test="${!field.i18n}">
+                            <c:out value="${light:capitalize(field.name)}"/>asd
+                        </c:when>
+                        <c:otherwise>
+                            <spring:message code="${field.name}"/>
+                        </c:otherwise>
+                    </c:choose>:
+                </strong></td>
                 <td name="field-${field.uuid}">&nbsp;</td>
             </tr>
         </c:forEach>
