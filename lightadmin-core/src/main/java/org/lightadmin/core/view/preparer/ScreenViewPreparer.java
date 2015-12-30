@@ -37,7 +37,10 @@ public class ScreenViewPreparer extends ConfigurationAwareViewPreparer {
     @Override
     protected void execute(final Request request, final AttributeContext attributeContext, final DomainTypeAdministrationConfiguration configuration) {
         super.execute(request, attributeContext, configuration);
-
-        addAttribute(attributeContext, "screenContext", configuration.getScreenContext(), true);
+        if(configuration.getScreenContext().i18n()) {
+            addAttribute(attributeContext, "screenName", messages.getMessage(configuration.getScreenContext().getScreenName()), true);
+        } else {
+            addAttribute(attributeContext, "screenName", configuration.getScreenContext(), true);
+        }
     }
 }

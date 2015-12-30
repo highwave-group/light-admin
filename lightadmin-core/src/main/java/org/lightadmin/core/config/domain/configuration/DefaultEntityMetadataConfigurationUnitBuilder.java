@@ -59,6 +59,12 @@ public class DefaultEntityMetadataConfigurationUnitBuilder extends AbstractField
     }
 
     @Override
+    public EntityMetadataConfigurationUnitBuilder i18n(boolean i18n) {
+        configurationUnit.setI18n(i18n);
+        return this;
+    }
+
+    @Override
     public EntityMetadataConfigurationUnitBuilder repositoryEventListener(Class<? extends AbstractRepositoryEventListener> listenerClass) {
         configurationUnit.setRepositoryEventListener(listenerClass);
         return this;

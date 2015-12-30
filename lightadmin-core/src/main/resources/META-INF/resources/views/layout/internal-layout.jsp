@@ -8,7 +8,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
-<tiles:importAttribute name="screenContext" ignore="true"/>
+<tiles:importAttribute name="screenName" ignore="true"/>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,7 +21,7 @@
     <meta http-equiv="Expires" content="0"/>
 
     <title><spring:message code="lightadmin.application.name"/>
-        <c:out value="${ not empty(screenContext) ? screenContext.screenName : ''}"/></title>
+        <c:out value="${ not empty(screenName) ? screenName : ''}"/></title>
 
     <link rel="stylesheet" type="text/css" href="<light:url value="/styles/main.css"/>">
     <link rel="stylesheet" type="text/css" href="<light:url value="/styles/lightadmin.css"/>">

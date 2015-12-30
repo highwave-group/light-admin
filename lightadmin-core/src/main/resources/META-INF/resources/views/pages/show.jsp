@@ -48,7 +48,7 @@
                 <td width="30%" align="right"><strong>
                     <c:choose>
                         <c:when test="${!field.i18n}">
-                            <c:out value="${light:capitalize(field.name)}"/>asd
+                            <c:out value="${light:capitalize(field.name)}"/>
                         </c:when>
                         <c:otherwise>
                             <spring:message code="${field.name}"/>

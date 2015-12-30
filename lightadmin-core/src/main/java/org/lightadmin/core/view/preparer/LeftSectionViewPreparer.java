@@ -32,6 +32,7 @@ import java.util.List;
 import static com.google.common.collect.Collections2.transform;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.sort;
+import static org.springframework.util.StringUtils.uncapitalize;
 
 public class LeftSectionViewPreparer extends ConfigurationAwareViewPreparer {
 
@@ -46,7 +47,12 @@ public class LeftSectionViewPreparer extends ConfigurationAwareViewPreparer {
     @Override
     protected void execute(final Request request, final AttributeContext attributeContext, final DomainTypeAdministrationConfiguration configuration) {
         final SidebarsConfigurationUnit sidebarsConfigurationUnit = configuration.getSidebars();
-        final String selectedMenuItemName = configuration.getEntityConfiguration().getPluralName();
+        final String selectedMenuItemName;
+        if(configuration.getEntityConfiguration().i18n()) {
+            selectedMenuItemName = messages.getMessage(configuration.getEntityConfiguration().getPluralName());
+        } else {
+            selectedMenuItemName = configuration.getEntityConfiguration().getPluralName();
+        }
 
         addAttribute(attributeContext, "selectedMenuItemName", selectedMenuItemName);
 
@@ -55,7 +61,13 @@ public class LeftSectionViewPreparer extends ConfigurationAwareViewPreparer {
 
     private Collection<MenuItem> menuItems(Collection<DomainTypeAdministrationConfiguration> configurations) {
         final List<MenuItem> menuItems = newArrayList(transform(configurations, new DomainConfigToMenuItemTransformer(domainEntityLinks)));
-
+        int i = 0;
+        for(DomainTypeAdministrationConfiguration domain : configurations) {
+            if(domain.getEntityConfiguration().i18n()) {
+                menuItems.get(i).setValue(messages.getMessage(uncapitalize(menuItems.get(i).getValue())));
+            }
+            i++;
+        }
         sort(menuItems, MenuItemComparator.INSTANCE);
 
         return menuItems;

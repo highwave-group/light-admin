@@ -28,6 +28,7 @@ public class DefaultEntityMetadataConfigurationUnit extends DefaultFieldSetConfi
 
     private String singularName;
     private String pluralName;
+    private boolean i18n;
 
     DefaultEntityMetadataConfigurationUnit(Class<?> domainType) {
         super(domainType, DomainConfigurationUnitType.CONFIGURATION);
@@ -74,4 +75,12 @@ public class DefaultEntityMetadataConfigurationUnit extends DefaultFieldSetConfi
         return null;
     }
 
+    @Override
+    public boolean i18n() {
+        return i18n;
+    }
+
+    public void setI18n(boolean i18n) {
+        this.i18n = i18n;
+    }
 }

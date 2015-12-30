@@ -22,16 +22,27 @@ import org.lightadmin.core.config.domain.unit.DomainTypeConfigurationUnit;
 public class DefaultScreenContextConfigurationUnit extends DomainTypeConfigurationUnit implements ScreenContextConfigurationUnit {
 
     private final String screenName;
+    private final boolean i18n;
 
     DefaultScreenContextConfigurationUnit(Class<?> domainType, final String screenName) {
+        this(domainType, screenName, false);
+    }
+
+    DefaultScreenContextConfigurationUnit(Class<?> domainType, final String screenName, final boolean i18n) {
         super(domainType);
 
         this.screenName = screenName;
+        this.i18n = i18n;
     }
 
     @Override
     public String getScreenName() {
         return screenName;
+    }
+
+    @Override
+    public boolean i18n() {
+        return i18n;
     }
 
     @Override
