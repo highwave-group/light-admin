@@ -34,7 +34,7 @@
         <c:set var="domainTypeName" value="${light:cutLongText(domainTypeAdministrationConfiguration.domainTypeName)}"/>
 
         <div style="float: right; margin-top: 10px; display: inline-block;">
-            <a id="link-dialog-${attributeMetadata.name}" href="javascript:void(0);" title="Create ${domainTypeName}"
+            <a id="link-dialog-${attributeMetadata.name}" href="javascript:void(0);" title="${create} ${domainTypeName}"
                class="btn14 mr5"><img src="<light:url value='/images/icons/dark/create.png'/>"
                                       alt="${create} ${domainTypeName}"></a>
         </div>
