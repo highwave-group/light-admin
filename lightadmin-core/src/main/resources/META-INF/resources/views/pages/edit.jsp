@@ -26,10 +26,11 @@
 <c:set var="domainTypeFormName" value="${domainTypeAdministrationConfiguration.pluralDomainTypeName}${dialogMode ? '-dialog-form' : '-form'}"/>
 <spring:message code="cancel" var="cancel"/>
 <spring:message code="save.changes" var="save_changes"/>
+<spring:message code="edit" var="edit"/>
 
 <c:if test="${not dialogMode}">
     <div class="title">
-        <h5><c:out value="Edit ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
+        <h5><c:out value="${edit} ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
     </div>
 
     <light-jsp:breadcrumb>
