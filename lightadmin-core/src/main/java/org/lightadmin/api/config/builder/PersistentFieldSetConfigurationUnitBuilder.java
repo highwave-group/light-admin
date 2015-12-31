@@ -26,7 +26,7 @@ public interface PersistentFieldSetConfigurationUnitBuilder extends Configuratio
 
     PersistentFieldSetConfigurationUnitBuilder caption(String caption);
 
-    PersistentFieldSetConfigurationUnitBuilder captionKey(final String captionKey);
+    PersistentFieldSetConfigurationUnitBuilder captionKey(String captionKey);
 
     @Deprecated
     PersistentFieldSetConfigurationUnitBuilder enumeration(String... values);
