@@ -62,7 +62,8 @@ import static org.springframework.web.servlet.DispatcherServlet.VIEW_RESOLVER_BE
         LightAdminDomainConfiguration.class,
         LightAdminRemoteConfiguration.class,
         LightAdminRepositoryRestMvcConfiguration.class,
-        LightAdminViewConfiguration.class
+        LightAdminViewConfiguration.class,
+        LightAdminUtilsConfiguration.class
 })
 @EnableWebMvc
 public class LightAdminContextConfiguration extends WebMvcConfigurerAdapter {
