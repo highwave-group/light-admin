@@ -21,6 +21,8 @@ import org.lightadmin.core.config.LightAdminConfiguration;
 import org.lightadmin.core.config.domain.DomainTypeAdministrationConfiguration;
 import org.lightadmin.core.config.domain.GlobalAdministrationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 public class ScreenViewPreparer extends ConfigurationAwareViewPreparer {
 
@@ -32,6 +34,7 @@ public class ScreenViewPreparer extends ConfigurationAwareViewPreparer {
         super.execute(request, attributeContext, configuration);
 
         addAttribute(attributeContext, "lightAdminConfiguration", lightAdminConfiguration, true);
+        addAttribute(attributeContext, "currentLanguage", LocaleContextHolder.getLocale().getLanguage(), true);
     }
 
     @Override
