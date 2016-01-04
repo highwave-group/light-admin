@@ -41,7 +41,12 @@
         <tr>
             <th class="info"></th>
             <c:forEach var="field" items="${fields}">
-                <th class="header"><c:out value="${field.name}"/></th>
+                <th class="header">
+                    <c:choose>
+                        <c:when test="${field.i18n == true}"><spring:message code="${field.name}"/></c:when>
+                        <c:otherwise><c:out value="${field.name}"/></c:otherwise>
+                    </c:choose>
+                </th>
             </c:forEach>
             <th><bean:message key="actions"/></th>
         </tr>
