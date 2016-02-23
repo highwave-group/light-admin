@@ -32,6 +32,7 @@ public class ScreenViewPreparer extends ConfigurationAwareViewPreparer {
         super.execute(request, attributeContext, configuration);
 
         addAttribute(attributeContext, "lightAdminConfiguration", lightAdminConfiguration, true);
+        addAttribute(attributeContext, "customStyle", lightAdminConfiguration.getCustomStylePath(), true);
     }
 
     @Override

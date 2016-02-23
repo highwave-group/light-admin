@@ -42,4 +42,5 @@ public interface LightAdminConfiguration {
 
     boolean isFileStreamingEnabled();
 
+    String getCustomStylePath();
 }

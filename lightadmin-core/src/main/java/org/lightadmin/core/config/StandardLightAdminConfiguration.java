@@ -39,6 +39,7 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
     private final boolean fileStreaming;
     private final String basePackage;
     private final boolean demoMode;
+    private String customStylePath;
 
     public StandardLightAdminConfiguration(ServletContext servletContext) {
         this.basePackage = servletContext.getInitParameter(LIGHT_ADMINISTRATION_BASE_PACKAGE);
@@ -59,6 +60,8 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
         } else {
             this.securityLogoutUrl = servletContext.getContextPath() + defaultIfBlank(servletContext.getInitParameter(LIGHT_ADMINISTRATION_SECURITY_LOGOUT_URL), "#");
         }
+
+        this.customStylePath = servletContext.getInitParameter(LIGHT_ADMINISTRATION_CUSTOM_STYLE);
     }
 
     @Override
@@ -111,6 +114,11 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
     }
 
     @Override
+    public String getCustomStylePath() {
+        return customStylePath;
+    }
+
+    @Override
     public String getSecurityLogoutUrl() {
         return securityLogoutUrl;
     }
@@ -136,4 +144,6 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
     private String urlWithoutEndSeparator(String url) {
         return url.endsWith("/") ? url.substring(0, url.length() - 1) : url;
     }
+
+
 }
