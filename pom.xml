@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lightadmin</groupId>
     <artifactId>lightadmin-parent</artifactId>
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.3.0.BUILD-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>LightAdmin Dev Kit</name>
@@ -13,13 +13,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
 
         <spring.platform.version>2.0.5.RELEASE</spring.platform.version>
         <jstl.version>1.2</jstl.version>
 
-        <light-logging-configurer.version>1.0.0.BUILD-SNAPSHOT</light-logging-configurer.version>
+        <light-logging-configurer.version>1.0.0.RC1</light-logging-configurer.version>
     </properties>
 
     <dependencyManagement>
