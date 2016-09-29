@@ -44,6 +44,12 @@ public class PersistentFieldSetConfigurationUnitBuilderAdapter implements Persis
         return this;
     }
 
+    @Override
+    public PersistentFieldSetConfigurationUnitBuilder captionKey(final String captionKey) {
+        fieldSetConfigurationUnitBuilder.captionKey(captionKey);
+        return this;
+    }
+
     @Deprecated
     @Override
     public PersistentFieldSetConfigurationUnitBuilder enumeration(String... values) {

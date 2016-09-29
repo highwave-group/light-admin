@@ -27,6 +27,8 @@ public abstract class AbstractFieldMetadata implements FieldMetadata, Serializab
 
     private String name;
 
+    private boolean i18n;
+
     private int order;
 
     private final UUID uuid;
@@ -43,6 +45,7 @@ public abstract class AbstractFieldMetadata implements FieldMetadata, Serializab
         this.name = name;
         this.order = order;
         this.uuid = UUID.randomUUID();
+        this.i18n = false;
     }
 
     @Override
@@ -130,5 +133,13 @@ public abstract class AbstractFieldMetadata implements FieldMetadata, Serializab
                 .add("order", order)
                 .add("uuid", uuid)
                 .toString();
+    }
+
+    public boolean isI18n() {
+        return i18n;
+    }
+
+    public void setI18n(boolean i18n) {
+        this.i18n = i18n;
     }
 }

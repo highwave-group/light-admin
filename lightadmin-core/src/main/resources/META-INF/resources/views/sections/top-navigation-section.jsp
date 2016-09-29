@@ -7,8 +7,10 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 
 <tiles:importAttribute name="lightAdminConfiguration" ignore="true"/>
+<tiles:importAttribute name="currentLanguage" ignore="true"/>
 
 <spring:message code="back.to.site" var="back_to_site"/>
+<spring:message code="lightadmin.application.menu.help" var="help"/>
 
 <div id="topNav">
     <div class="fixed">
@@ -47,12 +49,25 @@
 
             <div class="userNav">
                 <ul>
+                    <c:if test="${lightAdminConfiguration.i18n}">
+                        <li>
+                            <script>function changeLocale() { window.location = location.protocol + '//' + location.host + location.pathname+'?language='+document.getElementById("languageSelect").value }</script>
+                            <span>
+                                <select id="languageSelect" name="languageSelect" onchange="changeLocale()">
+                                    <c:forEach var="language" items="${lightAdminConfiguration.languages}">
+                                        <option value="${language}" <c:if test="${currentLanguage == language}"> selected </c:if>>
+                                            <spring:message code="language.${language}"/>
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </span>
+                        </li>
+                    </c:if>
                     <li>
-                        <a href="<c:out value='${lightAdminConfiguration.helpUrl}'/>"><img src="<light:url value='/images/icons/topnav/help.png'/>" alt=""><span>Help</span></a>
+                        <a href="<c:out value='${lightAdminConfiguration.helpUrl}'/>"><img src="<light:url value='/images/icons/topnav/help.png'/>" alt=""><span>${help}</span></a>
                     </li>
                 </ul>
             </div>
-
             <c:if test="${lightAdminConfiguration.demoMode}">
                 <div class="userNav">
                     <iframe allowtransparency="true" frameborder="0" scrolling="no"

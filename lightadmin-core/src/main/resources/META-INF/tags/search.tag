@@ -10,13 +10,16 @@
               type="org.lightadmin.api.config.unit.FiltersConfigurationUnit" %>
 
 <tiles:importAttribute name="domainTypeAdministrationConfiguration"/>
+<spring:message code="advanced.search" var="advanced_search"/>
+<spring:message code="reset" var="reset"/>
+<spring:message code="search" var="search"/>
 
 <c:set var="tag_search_filterList" value="<%= Iterables.toArray( filters, org.lightadmin.core.config.domain.filter.FilterMetadata.class ) %>"/>
 
 <c:if test="${not empty tag_search_filterList}">
 
     <div class="widget">
-        <div id="filter-header" class="head closed normal"><h5>Advanced Search</h5></div>
+        <div id="filter-header" class="head closed normal"><h5>${advanced_search}</h5></div>
         <div class="body" style="display: none; ">
 
             <form name="filter-form" class="mainForm">
@@ -33,8 +36,8 @@
                     </c:forEach>
                 </fieldset>
                 <div class="wizNav">
-                    <input id="reset-filter" class="basicBtn" type="button" value="Reset"/>
-                    <input id="apply-filter" class="blueBtn" type="submit" value="Search"/>
+                    <input id="reset-filter" class="basicBtn" type="button" value="${reset}"/>
+                    <input id="apply-filter" class="blueBtn" type="submit" value="${search}"/>
                 </div>
             </form>
         </div>

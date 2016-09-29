@@ -25,6 +25,8 @@ import org.lightadmin.core.config.domain.DomainTypeAdministrationConfiguration;
 import org.lightadmin.core.config.domain.GlobalAdministrationConfiguration;
 import org.lightadmin.core.web.ApplicationController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,6 +39,9 @@ public abstract class ConfigurationAwareViewPreparer implements ViewPreparer {
 
     @Autowired
     protected GlobalAdministrationConfiguration globalAdministrationConfiguration;
+
+    private MessageSource messageSource;
+    protected MessageSourceAccessor messages;
 
     @Override
     public final void execute(Request request, AttributeContext attributeContext) {
@@ -55,8 +60,13 @@ public abstract class ConfigurationAwareViewPreparer implements ViewPreparer {
         addAttribute(attributeContext, ApplicationController.DOMAIN_TYPE_ADMINISTRATION_CONFIGURATION_KEY, configuration, true);
 
         addAttribute(attributeContext, "persistentEntity", configuration.getPersistentEntity(), true);
-        addAttribute(attributeContext, "entityPluralName", configuration.getEntityConfiguration().getPluralName(), true);
-        addAttribute(attributeContext, "entitySingularName", entitySingularName(request, configuration), true);
+        if(configuration.getEntityConfiguration().i18n()) {
+            addAttribute(attributeContext, "entityPluralName", messages.getMessage(configuration.getEntityConfiguration().getPluralName()), true);
+            addAttribute(attributeContext, "entitySingularName", messages.getMessage(configuration.getEntityConfiguration().getSingularName()), true);
+        } else {
+            addAttribute(attributeContext, "entityPluralName", configuration.getEntityConfiguration().getPluralName(), true);
+            addAttribute(attributeContext, "entitySingularName", entitySingularName(request, configuration), true);
+        }
 
         addAttribute(attributeContext, "entity", entityFromRequest(request), true);
         addAttribute(attributeContext, "entityId", entityId(configuration, entityFromRequest(request)), true);
@@ -91,5 +101,11 @@ public abstract class ConfigurationAwareViewPreparer implements ViewPreparer {
 
     private Object entityFromRequest(Request request) {
         return attributeFromRequest(request, "entity");
+    }
+
+    @Autowired
+    public void getMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+        this.messages = new MessageSourceAccessor(messageSource);
     }
 }

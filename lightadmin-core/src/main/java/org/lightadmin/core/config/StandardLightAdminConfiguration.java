@@ -39,6 +39,8 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
     private final boolean fileStreaming;
     private final String basePackage;
     private final boolean demoMode;
+    private boolean i18n;
+    private String[] languages;
 
     public StandardLightAdminConfiguration(ServletContext servletContext) {
         this.basePackage = servletContext.getInitParameter(LIGHT_ADMINISTRATION_BASE_PACKAGE);
@@ -58,6 +60,12 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
             this.securityLogoutUrl = servletContext.getContextPath() + this.applicationBaseNoEndSeparator + LIGHT_ADMIN_SECURITY_LOGOUT_URL_DEFAULT;
         } else {
             this.securityLogoutUrl = servletContext.getContextPath() + defaultIfBlank(servletContext.getInitParameter(LIGHT_ADMINISTRATION_SECURITY_LOGOUT_URL), "#");
+        }
+
+        this.i18n = BooleanUtils.toBoolean(servletContext.getInitParameter(LIGHT_ADMINISTRATION_I18N));
+
+        if(i18n) {
+            this.languages = servletContext.getInitParameter(LIGHT_ADMINISTRATION_LANGUAGES).split(",");
         }
     }
 
@@ -79,6 +87,16 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
     @Override
     public boolean isFileStreamingEnabled() {
         return fileStreaming;
+    }
+
+    @Override
+    public boolean isI18n() {
+        return this.i18n;
+    }
+
+    @Override
+    public String[] getLanguages() {
+        return this.languages;
     }
 
     @Override

@@ -17,6 +17,7 @@ package org.lightadmin.core.config;
 
 import java.io.File;
 import java.net.URI;
+import java.util.List;
 
 public interface LightAdminConfiguration {
 
@@ -41,5 +42,9 @@ public interface LightAdminConfiguration {
     File getFileStorageDirectory();
 
     boolean isFileStreamingEnabled();
+
+    boolean isI18n();
+
+    String[] getLanguages();
 
 }

@@ -16,7 +16,7 @@
     <ul id="menu">
         <li class="dash"><a href="<light:url value='/dashboard'/>"
                             class="${empty selectedMenuItemName ? 'active' : ''}"><span><spring:message
-                code="application.menu.dashboard"/></span></a></li>
+                code="lightadmin.application.menu.dashboard"/></span></a></li>
         <c:forEach var="menuItem" items="${menuItems}" varStatus="status">
             <li class="typo"><a href="<light:url value='${menuItem.link}'/>" title=""
                                 class="${(not empty(selectedMenuItemName)) and (menuItem.value eq selectedMenuItemName) ? 'active' : ''}"><span><c:out

@@ -56,6 +56,17 @@ public abstract class AbstractFieldSetConfigurationBuilder<T extends Configurati
         assertFieldMetadataIsNotNull();
 
         currentFieldMetadata.setName(caption);
+        currentFieldMetadata.setI18n(false);
+
+        return (B) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public B captionKey(final String caption) {
+        assertFieldMetadataIsNotNull();
+
+        currentFieldMetadata.setName(caption);
+        currentFieldMetadata.setI18n(true);
 
         return (B) this;
     }

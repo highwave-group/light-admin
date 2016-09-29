@@ -23,10 +23,16 @@ public class EnumElement implements Serializable {
 
     private final Object value;
     private final String label;
+    private final boolean i18n;
 
     private EnumElement(Object value, String label) {
+       this(value,label, false);
+    }
+
+    private EnumElement(Object value, String label, boolean i18n) {
         this.value = value;
         this.label = label;
+        this.i18n = i18n;
     }
 
     public Object getValue() {
@@ -35,6 +41,10 @@ public class EnumElement implements Serializable {
 
     public String getLabel() {
         return label;
+    }
+
+    public boolean isI18n() {
+        return i18n;
     }
 
     public static EnumElement element(int value, String label) {
@@ -49,4 +59,15 @@ public class EnumElement implements Serializable {
         return new EnumElement(value, label);
     }
 
+    public static EnumElement element(int value, String label, boolean i18n) {
+        return new EnumElement(value, label, i18n);
+    }
+
+    public static EnumElement element(long value, String label, boolean i18n) {
+        return new EnumElement(value, label, i18n);
+    }
+
+    public static EnumElement element(String value, String label, boolean i18n) {
+        return new EnumElement(value, label, i18n);
+    }
 }

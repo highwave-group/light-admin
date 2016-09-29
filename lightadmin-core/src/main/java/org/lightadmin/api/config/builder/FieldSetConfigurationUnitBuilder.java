@@ -26,6 +26,8 @@ public interface FieldSetConfigurationUnitBuilder extends ConfigurationUnitBuild
 
     FieldSetConfigurationUnitBuilder caption(String caption);
 
+    FieldSetConfigurationUnitBuilder captionKey(String caption);
+
     FieldSetConfigurationUnitBuilder dynamic(String expression);
 
     FieldSetConfigurationUnitBuilder renderable(FieldValueRenderer<?> renderer);

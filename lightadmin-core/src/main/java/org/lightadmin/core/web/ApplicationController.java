@@ -33,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 import java.io.Serializable;
+import java.util.Locale;
 
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentContextPath;
@@ -66,43 +67,42 @@ public class ApplicationController {
 
     @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
     @RequestMapping(value = "/page-not-found", method = RequestMethod.GET)
-    public String handlePageNotFound() {
+    public String handlePageNotFound(Locale locale) {
         return "page-not-found";
     }
 
     @ResponseStatus(FORBIDDEN)
     @RequestMapping(value = "/access-denied", method = RequestMethod.GET)
-    public String handleAccessDenied() {
+    public String handleAccessDenied(Locale locale) {
         return "access-denied";
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    public String login(Locale locale) {
         return "login";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String root() {
+    public String root(Locale locale) {
         return redirectTo("/dashboard");
     }
 
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String dashboard() {
+    public String dashboard(Locale locale) {
         return "dashboard-view";
     }
 
     @RequestMapping(value = "/domain/{domainType}", method = RequestMethod.GET)
-    public String list(@PathVariable String domainType, Model model) {
-        addDomainTypeConfigurationToModel(domainType, model);
-
+    public String list(@PathVariable String domainType, Model model, Locale locale) {
+        addDomainTypeConfigurationToModel(domainType, model, locale);
         return "list-view";
     }
 
     @RequestMapping(value = "/domain/{domainTypeName}/{entityId}", method = RequestMethod.GET)
-    public String show(@PathVariable String domainTypeName, @PathVariable String entityId, Model model) {
-        addDomainTypeConfigurationToModel(domainTypeName, model);
+    public String show(@PathVariable String domainTypeName, @PathVariable String entityId, Model model, Locale locale) {
+        addDomainTypeConfigurationToModel(domainTypeName, model, locale);
 
-        final Object entity = findEntityOfDomain(entityId, domainTypeName);
+        final Object entity = findEntityOfDomain(entityId, domainTypeName, locale);
         if (entity == null) {
             return pageNotFound();
         }
@@ -112,10 +112,10 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = "/domain/{domainTypeName}/{entityId}/edit", method = RequestMethod.GET)
-    public String edit(@PathVariable String domainTypeName, @PathVariable String entityId, Model model) {
-        addDomainTypeConfigurationToModel(domainTypeName, model);
+    public String edit(@PathVariable String domainTypeName, @PathVariable String entityId, Model model, Locale locale) {
+        addDomainTypeConfigurationToModel(domainTypeName, model, locale);
 
-        final Object entity = findEntityOfDomain(entityId, domainTypeName);
+        final Object entity = findEntityOfDomain(entityId, domainTypeName, locale);
         if (entity == null) {
             return pageNotFound();
         }
@@ -125,22 +125,22 @@ public class ApplicationController {
     }
 
     @RequestMapping(value = "/domain/{domainTypeName}/{entityId}/edit-dialog", method = RequestMethod.GET)
-    public String editDialog(@PathVariable String domainTypeName, @PathVariable String entityId, Model model) {
-        edit(domainTypeName, entityId, model);
+    public String editDialog(@PathVariable String domainTypeName, @PathVariable String entityId, Model model, Locale locale) {
+        edit(domainTypeName, entityId, model, locale);
 
         return "edit-dialog-view";
     }
 
     @RequestMapping(value = "/domain/{domainTypeName}/create", method = RequestMethod.GET)
-    public String create(@PathVariable String domainTypeName, Model model) {
-        addDomainTypeConfigurationToModel(domainTypeName, model);
+    public String create(@PathVariable String domainTypeName, Model model, Locale locale) {
+        addDomainTypeConfigurationToModel(domainTypeName, model, locale);
 
         return "create-view";
     }
 
     @RequestMapping(value = "/domain/{domainTypeName}/create-dialog", method = RequestMethod.GET)
-    public String createDialog(@PathVariable String domainTypeName, Model model) {
-        create(domainTypeName, model);
+    public String createDialog(@PathVariable String domainTypeName, Model model, Locale locale) {
+        create(domainTypeName, model, locale);
 
         return "create-dialog-view";
     }
@@ -149,7 +149,7 @@ public class ApplicationController {
         return redirectTo("/page-not-found");
     }
 
-    private Object findEntityOfDomain(String entityId, String domainTypeName) {
+    private Object findEntityOfDomain(String entityId, String domainTypeName, Locale locale) {
         DomainTypeAdministrationConfiguration domainTypeConfiguration = configuration.forEntityName(domainTypeName);
         DynamicJpaRepository repository = domainTypeConfiguration.getRepository();
 
@@ -159,7 +159,7 @@ public class ApplicationController {
         return repository.findOne(id);
     }
 
-    private void addDomainTypeConfigurationToModel(String domainTypeName, Model model) {
+    private void addDomainTypeConfigurationToModel(String domainTypeName, Model model, Locale locale) {
         model.addAttribute(DOMAIN_TYPE_ADMINISTRATION_CONFIGURATION_KEY, configuration.forEntityName(domainTypeName));
         model.addAttribute(BEAN_FACTORY_KEY, appContext.getAutowireCapableBeanFactory());
     }

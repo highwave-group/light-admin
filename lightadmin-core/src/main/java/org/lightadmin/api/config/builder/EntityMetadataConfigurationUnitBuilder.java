@@ -31,6 +31,8 @@ public interface EntityMetadataConfigurationUnitBuilder extends ConfigurationUni
 
     EntityMetadataConfigurationUnitBuilder pluralName(String pluralName);
 
+    EntityMetadataConfigurationUnitBuilder i18n(boolean i18n);
+
     EntityMetadataConfigurationUnitBuilder field(String fieldName);
 
     EntityMetadataConfigurationUnitBuilder enumeration(EnumElement... elements);
