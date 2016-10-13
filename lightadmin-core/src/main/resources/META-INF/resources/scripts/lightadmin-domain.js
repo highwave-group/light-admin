@@ -17,6 +17,7 @@ function DomainEntity(data) {
     this.string_representation = data['string_representation'];
     this.managed_type = data['managed_type'];
     this.primary_key = data['primary_key'];
+    this.primary_key_value = data['primary_key_value'];
     this.domain_link = this.managed_type ? data['domain_link']['href'] : null;
     this.links = data['_links'];
     this.original_properties = data;
@@ -37,7 +38,7 @@ function DomainEntity(data) {
             url: associationLink,
             dataType: 'json',
             async: false,
-            success: function(data) {
+            success: function (data) {
                 if ($.isEmptyObject(data)) {
                     return null;
                 } else if (propertyType == 'ASSOC_MULTI') {
@@ -50,35 +51,39 @@ function DomainEntity(data) {
         return associationValue;
     }
 
-    this.getAssociationLink = function(propertyMetadata) {
+    this.getAssociationLink = function (propertyMetadata) {
         return this.links[propertyMetadata['name']]['href'];
     };
 
-    this.getSelfRestLink = function() {
+    this.getSelfRestLink = function () {
         return this.links['self']['href'];
     };
 
-    this.getStringRepresentation = function() {
+    this.getStringRepresentation = function () {
         return this.string_representation;
     };
 
-    this.isManagedType = function() {
+    this.isManagedType = function () {
         return this.managed_type;
     };
 
-    this.getDomainLink = function() {
+    this.getDomainLink = function () {
         return this.domain_link;
     };
 
-    this.getPrimaryKey = function() {
+    this.getPrimaryKey = function () {
         return this.primary_key;
     };
 
-    this.getPrimaryKeyValue = function() {
-        return this.original_properties[this.getPrimaryKey()];
+    this.getPrimaryKeyValue = function () {
+        if (this.primary_key_value !== null) {
+            return this.primary_key_value;
+        } else {
+            return this.original_properties[this.getPrimaryKey()];
+        }
     };
 
-    this.getPropertyValue = function(propertyMetadata, unitType) {
+    this.getPropertyValue = function (propertyMetadata, unitType) {
         var isDynamicProperty = !propertyMetadata['persistable'];
         var propertyName = propertyMetadata['name'];
         var propertyType = propertyMetadata['type'];
@@ -102,11 +107,11 @@ function DateTime(dateTimeValue) {
         time = dateTimeValue.split('T')[1].substr(0, 8);
     }
 
-    this.getDate = function() {
+    this.getDate = function () {
         return date;
     };
 
-    this.getTime = function() {
+    this.getTime = function () {
         return time;
     };
 }
