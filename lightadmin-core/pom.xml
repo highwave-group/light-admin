@@ -8,7 +8,7 @@
     <artifactId>lightadmin</artifactId>
     <packaging>jar</packaging>
 
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.3.1.BUILD-SNAPSHOT</version>
 
     <name>LightAdmin</name>
     <description>Pluggable data management solution for Java web applications developed in a "Rapid" manner
@@ -95,7 +95,7 @@
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
 
-        <spring.platform.version>1.1.2.RELEASE</spring.platform.version>
+        <spring.platform.version>2.0.5.RELEASE</spring.platform.version>
 
         <commons-collections4.version>4.0</commons-collections4.version>
         <imgscalr-lib.version>4.2</imgscalr-lib.version>
