@@ -15,6 +15,7 @@
  */
 package org.lightadmin.core.config.bootstrap;
 
+import org.apache.tika.metadata.Geographic;
 import org.lightadmin.core.config.bootstrap.parsing.validation.CompositeConfigurationUnitsValidator;
 import org.lightadmin.core.config.bootstrap.scanning.AdministrationClassScanner;
 import org.lightadmin.core.config.bootstrap.scanning.ClassScanner;
@@ -33,6 +34,7 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.orm.jpa.EntityManagerFactoryUtils;
 import org.springframework.orm.jpa.SharedEntityManagerCreator;
@@ -44,6 +46,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.metamodel.EntityType;
 import javax.servlet.ServletContext;
+
 import java.util.Set;
 
 import static com.google.common.collect.Sets.newHashSet;
@@ -89,10 +92,13 @@ public class LightAdminBeanDefinitionRegistryPostProcessor implements BeanDefini
         registry.registerBeanDefinition(JPA_MAPPPING_CONTEXT_BEAN, mappingContext(entityManager));
 
         registry.registerBeanDefinition(CONFIGURATION_UNITS_VALIDATOR_BEAN, configurationUnitsValidator(resourceLoader));
-
+        
+        Repositories repositories = new Repositories(rootContext);
         for (Class<?> managedEntityType : managedEntities(entityManager)) {
-            Class repoInterface = createDynamicRepositoryClass(managedEntityType, entityManager);
-            registry.registerBeanDefinition(beanName(repoInterface), repositoryFactory(repoInterface, entityManager));
+        	if(!repositories.hasRepositoryFor(managedEntityType)){
+        		Class repoInterface = createDynamicRepositoryClass(managedEntityType, entityManager);
+                registry.registerBeanDefinition(beanName(repoInterface), repositoryFactory(repoInterface, entityManager));
+        	}
         }
 
         registerRepositoryEventListeners(configurationUnits, registry);
