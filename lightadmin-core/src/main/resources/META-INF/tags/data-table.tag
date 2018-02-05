@@ -56,7 +56,7 @@
         var dataTable = tableElement.dataTable({
             "bJQueryUI": true,
             "bStateSave": true,
-            "sAjaxDataProp": '_embedded.persistentEntityWrappers',
+            "sAjaxDataProp": '_embedded.${domainTypeAdministrationConfiguration.pluralDomainTypeName}',
             "aoColumnDefs": [
                 {
                     "bSortable": false,
@@ -81,7 +81,7 @@
                     },
                 </c:when>
                 <c:otherwise>
-                    "mData": '${field.dynamic or light:persistentPropertyTypeOf(field.persistentProperty) eq FILE? 'dynamic_properties.listView.' : 'original_properties.'}${propertyName}',
+                    "mData": '${field.dynamic or light:persistentPropertyTypeOf(field.persistentProperty) eq FILE? 'dynamic_properties.listView.' : ''}${propertyName}',
                 </c:otherwise>
             </c:choose>
                     "mRender": function (innerData) {
