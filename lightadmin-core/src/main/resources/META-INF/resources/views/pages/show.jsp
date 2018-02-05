@@ -22,9 +22,11 @@
 <spring:message code="confirmation.dialog" var="confrmation_dialog"/>
 <spring:message code="are.you.sure" var="are_you_sure"/>
 <spring:message code="update.operation.has.been.performed.successfully" var="update_successfully"/>
+<spring:message code="view" var="view"/>
+
 
 <div class="title">
-    <h5><c:out value="Show ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
+    <h5><c:out value="${view} ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
 </div>
 
 <light-jsp:breadcrumb>
@@ -38,14 +40,23 @@
 
         <div style="float: right;margin-top: 5px;display: inline-block;">
             <a href="${domainBaseUrl}/${entityId}/edit" title="${edit}" class="btn14 mr5"><img src="<light:url value='/images/icons/dark/pencil.png'/>" alt="${edit}"></a>
-            <a href="javascript:void(0);" title="${edit}" class="btn14 mr5 remove_button"><img src="<light:url value='/images/icons/dark/basket.png'/>" alt="${remove}"></a>
+            <a href="javascript:void(0);" title="${remove}" class="btn14 mr5 remove_button"><img src="<light:url value='/images/icons/dark/basket.png'/>" alt="${remove}"></a>
         </div>
     </div>
     <table cellpadding="0" cellspacing="0" width="100%" class="tableStatic">
         <tbody id="data-section">
         <c:forEach var="field" items="${fields}" varStatus="status">
             <tr class="${status.first ? 'noborder' : ''}">
-                <td width="30%" align="right"><strong><c:out value="${field.name}"/>:</strong></td>
+                <td width="30%" align="right"><strong>
+                    <c:choose>
+                        <c:when test="${!field.i18n}">
+                            <c:out value="${light:capitalize(field.name)}"/>
+                        </c:when>
+                        <c:otherwise>
+                            <spring:message code="${field.name}"/>
+                        </c:otherwise>
+                    </c:choose>:
+                </strong></td>
                 <td name="field-${field.uuid}">&nbsp;</td>
             </tr>
         </c:forEach>

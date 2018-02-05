@@ -28,4 +28,6 @@ public interface EntityMetadataConfigurationUnit extends ConfigurationUnit {
     String getSingularName();
 
     String getPluralName();
+
+    boolean i18n();
 }

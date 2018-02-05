@@ -9,7 +9,7 @@
 <tiles:importAttribute name="dashboardDomainTypes"/>
 
 <div class="title">
-	<h5><spring:message code="application.menu.dashboard"/></h5>
+	<h5><spring:message code="lightadmin.application.menu.dashboard"/></h5>
 </div>
 
 <div class="widget">

@@ -6,6 +6,7 @@
 <spring:message code="log.me.in" var="log_me_in"/>
 <spring:message code="please.enter.your.password" var="please_password"/>
 <spring:message code="please.enter.your.name" var="please_name"/>
+<spring:message code="remember.me" var="remember_me"/>
 
 <div class="loginWrapper" style="width: 320px;">
     <div class="loginLogo"><img src="<light:url value='/dynamic/logo'/>"/></div>
@@ -48,7 +49,7 @@
                 <div class="loginRow">
                     <div class="rememberMe"><input type="checkbox" id="_spring_security_remember_me"
                                                    name="_spring_security_remember_me"/><label
-                            for="_spring_security_remember_me">Remember me</label></div>
+                            for="_spring_security_remember_me">${remember_me}</label></div>
                     <input id="signIn" type="submit" value="${log_me_in}" class="greyishBtn submitForm"/>
 
                     <div class="fix"></div>

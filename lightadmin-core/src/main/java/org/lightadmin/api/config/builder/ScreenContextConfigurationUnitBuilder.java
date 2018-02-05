@@ -22,4 +22,6 @@ public interface ScreenContextConfigurationUnitBuilder extends ConfigurationUnit
 
     ScreenContextConfigurationUnitBuilder screenName(String screenName);
 
+    ScreenContextConfigurationUnitBuilder i18n(boolean i18n);
+
 }

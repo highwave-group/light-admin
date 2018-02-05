@@ -32,6 +32,7 @@ import java.util.List;
 
 import static com.google.common.collect.Lists.newLinkedList;
 import static java.util.Collections.sort;
+import static org.springframework.util.StringUtils.uncapitalize;
 
 public class DashboardViewPreparer extends ConfigurationAwareViewPreparer {
 
@@ -49,6 +50,9 @@ public class DashboardViewPreparer extends ConfigurationAwareViewPreparer {
         final List<Pair<MenuItem, Long>> domainTypeItems = newLinkedList();
         for (DomainTypeAdministrationConfiguration configuration : configurations) {
             domainTypeItems.add(Pair.create(menuItem(configuration), configuration.getRepository().count()));
+            if(configuration.getEntityConfiguration().i18n()) {
+                domainTypeItems.get(domainTypeItems.size()-1).first.setValue(messages.getMessage(uncapitalize(domainTypeItems.get(domainTypeItems.size()-1).first.getValue())));
+            }
         }
 
         sort(domainTypeItems, new Comparator<Pair<MenuItem, Long>>() {

@@ -24,10 +24,11 @@
 <c:set var="domainTypeFormName" value="${domainTypeAdministrationConfiguration.pluralDomainTypeName}${dialogMode ? '-dialog-form' : '-form'}"/>
 <spring:message code="cancel" var="cancel"/>
 <spring:message code="save.changes" var="save_changes"/>
+<spring:message code="create" var="create"/>
 
 <c:if test="${not dialogMode}">
     <div class="title">
-        <h5><c:out value="Create ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
+        <h5><c:out value="${create} ${light:capitalize(light:cutLongText(entitySingularName))}"/></h5>
     </div>
 
     <light-jsp:breadcrumb>
@@ -46,8 +47,15 @@
                     <div id="${fieldEntry.uuid}-control-group" class="rowElem ${status.first ? 'noborder' : ''}">
                         <label>
                             <strong>
-                                <c:out value="${light:capitalize(fieldEntry.name)}"/>:<c:if
-                                    test="${fieldEntry.required}"><span class="req">*</span></c:if>
+                                <c:choose>
+                                    <c:when test="${!fieldEntry.i18n}">
+                                        <c:out value="${light:capitalize(fieldEntry.name)}"/>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <spring:message code="${fieldEntry.name}"/>
+                                    </c:otherwise>
+                                </c:choose>:
+                                    <c:if test="${fieldEntry.required}"><span class="req">*</span></c:if>
                             </strong>
                         </label>
 
