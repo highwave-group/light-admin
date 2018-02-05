@@ -73,7 +73,11 @@ public class LightAdmin {
     }
 
     public LightAdmin demoMode() {
-        servletContext.setInitParameter(LIGHT_ADMINISTRATION_DEMO_MODE, Boolean.toString(true));
+    	return demoMode(true);
+    }
+    
+    public LightAdmin demoMode(boolean demoMode) {
+        servletContext.setInitParameter(LIGHT_ADMINISTRATION_DEMO_MODE, Boolean.toString(demoMode));
         return this;
     }
 }

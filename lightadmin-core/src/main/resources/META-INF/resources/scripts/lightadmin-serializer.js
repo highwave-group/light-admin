@@ -35,33 +35,37 @@
         var json = {};
         $.each(this.serializeArray(), function () {
             var attrVal = this.value || '';
-
-            var property = ConfigurationMetadataService.getProperty(resourceName, this.name, 'formView');
-
+            var propertyName = this.name.replace("[]", "");
+            var property = ConfigurationMetadataService.getProperty(resourceName, propertyName, 'formView');
             if (property == null) {
-                if ( isPartialPropertyField(this.name) && attrVal.length != 0) {
-                    var main_property_name = this.name.substr(0, this.name.indexOf("_time"));
+                if ( isPartialPropertyField(propertyName) && attrVal.length != 0) {
+                    var main_property_name = propertyName.substr(0, propertyName.indexOf("_time"));
                     if (json[main_property_name] != null && json[main_property_name].length != 0) {
                         json[main_property_name] = json[main_property_name] + 'T' + attrVal;
                     }
                 }
                 return;
             }
-
             var propertyType = property['type'];
-
-            if (propertyType.indexOf('ASSOC') == 0) {
+            if (propertyType.indexOf('COLLECTION') == 0) {
+            	if (!json[propertyName]) {
+            		json[propertyName] = [];
+                }
+            	if(attrVal != ''){
+            		json[propertyName].push(attrVal);
+            	}
+            }else if (propertyType.indexOf('ASSOC') == 0) {
                 var href = resolveObjectHref(attrVal, property);
                 if (propertyType == 'ASSOC_MULTI') {
-                    if (!json[this.name]) {
-                        json[this.name] = [];
+                    if (!json[propertyName]) {
+                        json[propertyName] = [];
                     }
-                    json[this.name].push(href);
+                    json[propertyName].push(href);
                 } else {
-                    json[this.name] = href;
+                    json[propertyName] = href;
                 }
             } else {
-                json[this.name] = attrVal;
+                json[propertyName] = attrVal;
             }
         });
 

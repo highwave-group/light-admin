@@ -42,6 +42,7 @@ public class EditControlDispatcherTag extends SimpleTagSupport {
     private JspFragment n2oneEditControl;
     private JspFragment n2manyEditControl;
     private JspFragment mapEditControl;
+    private JspFragment collectionEditControl;
 
     @Override
     public void doTag() throws JspException, IOException {
@@ -70,6 +71,9 @@ public class EditControlDispatcherTag extends SimpleTagSupport {
                 break;
             case MAP:
                 worker = mapEditControl;
+                break;
+            case COLLECTION:
+                worker = collectionEditControl;
                 break;
             case BOOL:
                 worker = booleanEditControl;
@@ -142,7 +146,11 @@ public class EditControlDispatcherTag extends SimpleTagSupport {
         this.mapEditControl = control;
     }
 
-    public void setFileEditControl(final JspFragment fileEditControl) {
+	public void setCollectionEditControl(JspFragment collectionEditControl) {
+		this.collectionEditControl = collectionEditControl;
+	}
+
+	public void setFileEditControl(final JspFragment fileEditControl) {
         this.fileEditControl = fileEditControl;
     }
 
