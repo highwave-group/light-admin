@@ -54,4 +54,5 @@ public class LightAdminConfigurationUtils {
     public static final String LIGHT_ADMINISTRATION_HELP_DEFAULT_URL = "http://lightadmin.org/getting-started/";
 
     public static final String LIGHT_ADMINISTRATION_DEMO_MODE = "light:administration:demo-mode";
+    public static final String LIGHT_ADMINISTRATION_CUSTOM_STYLE = "light:administration:custom-style";
 }
