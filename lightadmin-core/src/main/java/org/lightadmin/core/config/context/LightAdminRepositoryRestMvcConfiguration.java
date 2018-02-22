@@ -33,9 +33,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.support.Repositories;
+import org.springframework.data.repository.support.RepositoryInvokerFactory;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
-import org.springframework.data.rest.core.invoke.RepositoryInvokerFactory;
 import org.springframework.data.rest.core.support.DomainObjectMerger;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.config.PersistentEntityResourceAssemblerArgumentResolver;
@@ -113,7 +113,7 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
     @Override
     protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.setDefaultPageSize(10);
-        config.setBaseUri(lightAdminConfiguration().getApplicationRestBaseUrl());
+        config.setBasePath(lightAdminConfiguration().getApplicationRestBasePath());
         config.exposeIdsFor(globalAdministrationConfiguration().getAllDomainTypesAsArray());
         config.setReturnBodyOnCreate(true);
         config.setReturnBodyOnUpdate(true);
