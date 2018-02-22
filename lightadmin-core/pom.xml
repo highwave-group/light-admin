@@ -8,7 +8,7 @@
     <artifactId>lightadmin</artifactId>
     <packaging>jar</packaging>
 
-    <version>1.2.0.BUILD-SNAPSHOT</version>
+    <version>1.2.1.CE-BUILD-SNAPSHOT</version>
 
     <name>LightAdmin</name>
     <description>Pluggable data management solution for Java web applications developed in a "Rapid" manner
@@ -501,6 +501,19 @@
                     <url>http://lightadmin.org/nexus/content/repositories/releases</url>
                 </repository>
             </distributionManagement>
+        </profile>
+        <profile>
+        	<id>vantage-distribution</id>
+        	<distributionManagement>
+        		<snapshotRepository>
+        			<id>third-party-snapshots</id>
+        			<url>http://maven2.vantage.com:8080/repo/content/repositories/third-party-snapshots</url>
+        		</snapshotRepository>
+        		<repository>
+        			<id>third-party</id>
+        			<url>http://maven2.vantage.com:8080/repo/content/repositories/third-party</url>
+        		</repository>
+        	</distributionManagement>
         </profile>
         <profile>
             <id>oss-distribution</id>
