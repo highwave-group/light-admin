@@ -134,11 +134,13 @@ public class LightAdminWebApplicationInitializer implements WebApplicationInitia
 
 	private ResourceServlet logoResourceServlet(ServletContext servletContext) {
         Resource classPathResource = defaultResourceLoader().getResource(LIGHT_ADMIN_CUSTOM_RESOURCE_LOGO_CLASSPATH_LOCATION);
-        
-        Resource webResource = servletContextResourceLoader(servletContext).getResource(LIGHT_ADMIN_CUSTOM_RESOURCE_LOGO_WEB_INF_LOCATION);
-        
-        if (classPathResource.exists() || webResource.exists()) {
+        if (classPathResource.exists()) {
             return concreteResourceServlet(resourceServletMapping(servletContext, LIGHT_ADMIN_CUSTOM_RESOURCE_LOGO));
+        }
+
+        Resource webResource = servletContextResourceLoader(servletContext).getResource(LIGHT_ADMIN_CUSTOM_RESOURCE_LOGO_WEB_INF_LOCATION);
+        if (webResource.exists()) {
+            return concreteResourceServlet(LIGHT_ADMIN_CUSTOM_RESOURCE_LOGO_WEB_INF_LOCATION);
         }
 
 		return concreteResourceServlet(resourceServletMapping(servletContext, LIGHT_ADMIN_DEFAULT_LOGO_LOCATION));
