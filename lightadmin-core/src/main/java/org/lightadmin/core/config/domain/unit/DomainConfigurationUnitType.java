@@ -17,9 +17,6 @@ package org.lightadmin.core.config.domain.unit;
 
 import static java.lang.String.format;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 public enum DomainConfigurationUnitType {
 
     SCREEN_CONTEXT("screenContext"),
@@ -34,12 +31,10 @@ public enum DomainConfigurationUnitType {
 
     private final String name;
 
-    @JsonCreator
     private DomainConfigurationUnitType(final String name) {
         this.name = name;
     }
 
-    @JsonValue
     public String getName() {
         return name;
     }

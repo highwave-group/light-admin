@@ -26,9 +26,10 @@ import org.lightadmin.core.config.domain.unit.DomainConfigurationUnitType;
 import org.lightadmin.core.persistence.metamodel.PersistentPropertyType;
 import org.lightadmin.core.storage.FileResourceStorage;
 import org.springframework.data.mapping.*;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.mapping.ResourceMappings;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
-import org.springframework.data.rest.webmvc.mapping.AssociationLinks;
+import org.springframework.data.rest.webmvc.mapping.Associations;
 import org.springframework.data.util.DirectFieldAccessFallbackBeanWrapper;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.ResourceProcessor;
@@ -56,14 +57,16 @@ public class DynamicPersistentEntityResourceProcessor implements ResourceProcess
     private final DynamicRepositoryEntityLinks entityLinks;
     private final DomainEntityLinks domainEntityLinks;
     private final FileResourceStorage fileResourceStorage;
-    private final AssociationLinks associationLinks;
+    private Associations associations;
 
-    public DynamicPersistentEntityResourceProcessor(GlobalAdministrationConfiguration adminConfiguration, FileResourceStorage fileResourceStorage, DynamicRepositoryEntityLinks entityLinks, DomainEntityLinks domainEntityLinks, ResourceMappings resourceMappings) {
+    public DynamicPersistentEntityResourceProcessor(GlobalAdministrationConfiguration adminConfiguration,
+    		FileResourceStorage fileResourceStorage, DynamicRepositoryEntityLinks entityLinks,
+    		DomainEntityLinks domainEntityLinks, ResourceMappings resourceMappings, Associations associations) {
         this.adminConfiguration = adminConfiguration;
         this.domainEntityLinks = domainEntityLinks;
         this.entityLinks = entityLinks;
         this.fileResourceStorage = fileResourceStorage;
-        this.associationLinks = new AssociationLinks(resourceMappings);
+        this.associations = associations;
     }
 
     @Override
@@ -222,7 +225,7 @@ public class DynamicPersistentEntityResourceProcessor implements ResourceProcess
         persistentEntity.doWithAssociations(new SimpleAssociationHandler() {
             @Override
             public void doWithAssociation(Association<? extends PersistentProperty<?>> association) {
-                if (associationLinks.isLinkableAssociation(association.getInverse())) {
+                if (associations.isLinkableAssociation(association.getInverse())) {
                     result.add(association);
                 }
             }
