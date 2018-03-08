@@ -66,6 +66,11 @@ public class StandardLightAdminConfiguration implements LightAdminConfiguration 
         return UriComponentsBuilder.fromUriString(LIGHT_ADMIN_REST_URL_DEFAULT).build().toUri();
     }
 
+	@Override
+	public String getApplicationRestBasePath() {
+		return LIGHT_ADMIN_REST_URL_DEFAULT;
+	}
+
     @Override
     public String getBasePackage() {
         return this.basePackage;

@@ -34,7 +34,6 @@ public enum DomainConfigurationUnitType {
 
     private final String name;
 
-    @JsonCreator
     private DomainConfigurationUnitType(final String name) {
         this.name = name;
     }
@@ -44,6 +43,7 @@ public enum DomainConfigurationUnitType {
         return name;
     }
 
+    @JsonCreator
     public static DomainConfigurationUnitType forName(String name) {
         for (DomainConfigurationUnitType domainConfigurationUnitType : values()) {
             if (domainConfigurationUnitType.getName().equals(name)) {
