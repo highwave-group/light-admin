@@ -91,7 +91,7 @@ public class LightAdminBeanDefinitionRegistryPostProcessor implements BeanDefini
         registry.registerBeanDefinition(CONFIGURATION_UNITS_VALIDATOR_BEAN, configurationUnitsValidator(resourceLoader));
 
         for (Class<?> managedEntityType : managedEntities(entityManager)) {
-            Class repoInterface = createDynamicRepositoryClass(managedEntityType, entityManager);
+			Class repoInterface = createDynamicRepositoryClass(managedEntityType, entityManager);
             registry.registerBeanDefinition(beanName(repoInterface), repositoryFactory(repoInterface, entityManager));
         }
 
@@ -160,9 +160,9 @@ public class LightAdminBeanDefinitionRegistryPostProcessor implements BeanDefini
 
     private BeanDefinition repositoryFactory(Class<?> repoInterface, EntityManager entityManager) {
         BeanDefinitionBuilder builder = rootBeanDefinition(JpaRepositoryFactoryBean.class);
+        builder.addConstructorArgValue(repoInterface);
         builder.addPropertyValue("entityManager", entityManager);
         builder.addPropertyReference("mappingContext", JPA_MAPPPING_CONTEXT_BEAN);
-        builder.addPropertyValue("repositoryInterface", repoInterface);
         return builder.getBeanDefinition();
     }
 
@@ -184,7 +184,8 @@ public class LightAdminBeanDefinitionRegistryPostProcessor implements BeanDefini
         return new ServletContextResourceLoader(servletContext);
     }
 
-    private Class createDynamicRepositoryClass(Class domainType, EntityManager entityManager) {
+    @SuppressWarnings("unchecked")
+	private Class createDynamicRepositoryClass(Class domainType, EntityManager entityManager) {
         EntityType entityType = entityManager.getMetamodel().entity(domainType);
         Class idType = entityType.getIdType().getJavaType();
 

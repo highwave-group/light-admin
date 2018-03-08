@@ -16,16 +16,13 @@
 package org.lightadmin.core.web.support;
 
 import org.springframework.data.mapping.PersistentEntity;
-import org.springframework.data.repository.core.EntityInformation;
-import org.springframework.data.repository.support.Repositories;
-import org.springframework.data.rest.core.mapping.ResourceMappings;
+import org.springframework.data.mapping.context.PersistentEntities;
+import org.springframework.data.rest.core.support.SelfLinkProvider;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
+import org.springframework.data.rest.webmvc.mapping.Associations;
 import org.springframework.data.rest.webmvc.support.Projector;
-import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
-
-import java.io.Serializable;
 
 import static org.springframework.beans.PropertyAccessorFactory.forDirectFieldAccess;
 
@@ -35,50 +32,50 @@ import static org.springframework.beans.PropertyAccessorFactory.forDirectFieldAc
  * @author Maxim Kharchenko (kharchenko.max@gmail.com)
  */
 public class DynamicPersistentEntityResourceAssembler extends PersistentEntityResourceAssembler {
-
+	
     public DynamicPersistentEntityResourceAssembler(PersistentEntityResourceAssembler resourceAssembler) {
-        super(repositories(resourceAssembler), entityLinks(resourceAssembler), projector(resourceAssembler), mappings(resourceAssembler));
+        super(entities(resourceAssembler), projector(resourceAssembler), associations(resourceAssembler), linkProvider(resourceAssembler));
     }
 
-    /**
+	/**
      * @see DATAREST-269 (https://jira.spring.io/browse/DATAREST-269)
      */
     @Override
     public Link getSelfLinkFor(Object instance) {
         Assert.notNull(instance, "Domain object must not be null!");
 
-        Repositories repositories = repositories(this);
-
-        Class instanceType = instance.getClass();
-        PersistentEntity<?, ?> entity = repositories.getPersistentEntity(instanceType);
+        @SuppressWarnings("rawtypes")
+		Class instanceType = instance.getClass();
+        PersistentEntity<?, ?> entity = entities(this).getPersistentEntity(instanceType);
 
         if (entity == null) {
             throw new IllegalArgumentException(String.format("Cannot create self link for %s! No persistent entity found!", instanceType));
         }
 
-        EntityInformation<Object, Serializable> entityInformation = repositories.getEntityInformationFor(instanceType);
-        Serializable id = entityInformation.getId(instance);
+        Object id = entity.getIdentifierAccessor(instance).getIdentifier();
 
         if (id == null) {
-            return entityLinks(this).linkToCollectionResource(entity.getType()).withSelfRel();
+        	throw new IllegalArgumentException(String.format("Cannot create self link for %s of Type: %s! No Id found!",
+        			instance, instanceType));
         }
 
-        return entityLinks(this).linkToSingleResource(entity.getType(), id).withSelfRel();
-    }
 
-    private static Repositories repositories(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
-        return (Repositories) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("repositories");
-    }
-
-    private static EntityLinks entityLinks(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
-        return (EntityLinks) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("entityLinks");
+		return super.getSelfLinkFor(instance);
     }
 
     private static Projector projector(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
         return (Projector) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("projector");
     }
 
-    private static ResourceMappings mappings(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
-        return (ResourceMappings) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("mappings");
+    private static PersistentEntities entities(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
+        return (PersistentEntities) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("entities");
+	}
+    
+    private static Associations associations(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
+    	return (Associations) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("associations");
+    }
+    
+    private static SelfLinkProvider linkProvider(PersistentEntityResourceAssembler persistentEntityResourceAssembler) {
+    	return (SelfLinkProvider) forDirectFieldAccess(persistentEntityResourceAssembler).getPropertyValue("linkProvider");
     }
 }

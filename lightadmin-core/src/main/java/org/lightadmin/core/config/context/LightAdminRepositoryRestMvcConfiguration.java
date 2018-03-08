@@ -15,7 +15,6 @@
  */
 package org.lightadmin.core.config.context;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.lightadmin.core.config.LightAdminConfiguration;
 import org.lightadmin.core.config.bootstrap.RepositoriesFactoryBean;
 import org.lightadmin.core.config.domain.GlobalAdministrationConfiguration;
@@ -24,23 +23,23 @@ import org.lightadmin.core.persistence.repository.invoker.DynamicRepositoryInvok
 import org.lightadmin.core.persistence.support.DynamicDomainObjectMerger;
 import org.lightadmin.core.storage.FileResourceStorage;
 import org.lightadmin.core.web.json.DomainTypeToJsonMetadataConverter;
-import org.lightadmin.core.web.json.LightAdminJacksonModule;
 import org.lightadmin.core.web.support.*;
 import org.springframework.beans.BeanInstantiationException;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.repository.support.Repositories;
-import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
-import org.springframework.data.rest.core.invoke.RepositoryInvokerFactory;
+import org.springframework.data.repository.support.RepositoryInvokerFactory;
 import org.springframework.data.rest.core.support.DomainObjectMerger;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.config.PersistentEntityResourceAssemblerArgumentResolver;
+import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
-import org.springframework.validation.Validator;
+import org.springframework.data.rest.webmvc.mapping.LinkCollector;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -70,7 +69,9 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
 
     @Bean
     public DynamicPersistentEntityResourceProcessor dynamicPersistentEntityResourceProcessor() {
-        return new DynamicPersistentEntityResourceProcessor(globalAdministrationConfiguration(), fileResourceStorage(), dynamicRepositoryEntityLinks(), domainEntityLinks(), resourceMappings());
+        return new DynamicPersistentEntityResourceProcessor(globalAdministrationConfiguration(),
+        		fileResourceStorage(), dynamicRepositoryEntityLinks(), domainEntityLinks(),
+        		resourceMappings(), associationLinks());
     }
 
     @Bean
@@ -92,9 +93,9 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
         return new DynamicDomainObjectMerger(repositories(), defaultConversionService(), globalAdministrationConfiguration());
     }
 
-    @Bean
-    public RepositoryInvokerFactory repositoryInvokerFactory() {
-        RepositoryInvokerFactory repositoryInvokerFactory = super.repositoryInvokerFactory();
+    @Override
+    public RepositoryInvokerFactory repositoryInvokerFactory(@Qualifier ConversionService defaultConversionService) {
+        RepositoryInvokerFactory repositoryInvokerFactory = super.repositoryInvokerFactory(defaultConversionService);
 
         return new DynamicRepositoryInvokerFactory(repositories(), repositoryInvokerFactory);
     }
@@ -109,14 +110,10 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
     public FileManipulationRepositoryEventListener domainRepositoryEventListener(GlobalAdministrationConfiguration configuration, FileResourceStorage fileResourceStorage) {
         return new FileManipulationRepositoryEventListener(configuration, fileResourceStorage);
     }
-
-    @Override
-    protected void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
-        config.setDefaultPageSize(10);
-        config.setBaseUri(lightAdminConfiguration().getApplicationRestBaseUrl());
-        config.exposeIdsFor(globalAdministrationConfiguration().getAllDomainTypesAsArray());
-        config.setReturnBodyOnCreate(true);
-        config.setReturnBodyOnUpdate(true);
+    
+    @Bean
+    public RepositoryRestConfigurer lightAdminRepositoryRestConfigurer() {
+    	return new LightAdminRepositoryRestConfigurer();
     }
 
     @Override
@@ -127,20 +124,14 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
     }
 
     @Override
-    protected void configureValidatingRepositoryEventListener(ValidatingRepositoryEventListener validatingListener) {
-        validatingListener.addValidator("beforeCreate", validator());
-        validatingListener.addValidator("beforeSave", validator());
-    }
-
-    @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         super.addArgumentResolvers(argumentResolvers);
         argumentResolvers.add(configurationHandlerMethodArgumentResolver());
     }
-
+    
     @Override
-    protected void configureJacksonObjectMapper(ObjectMapper objectMapper) {
-        objectMapper.registerModule(new LightAdminJacksonModule(globalAdministrationConfiguration()));
+    protected LinkCollector linkCollector() {
+    	return new LightAdminLinkCollector(persistentEntities(), selfLinkProvider(), associationLinks());
     }
 
     @SuppressWarnings("unchecked")
@@ -173,10 +164,6 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
 
     private FileResourceStorage fileResourceStorage() {
         return beanFactory.getBean(FileResourceStorage.class);
-    }
-
-    private Validator validator() {
-        return beanFactory.getBean("validator", Validator.class);
     }
 
     private LightAdminConfiguration lightAdminConfiguration() {
