@@ -50,7 +50,9 @@ public class JpaMetamodelMappingContextFactoryBean extends AbstractFactoryBean<J
             }
         }
 
-        JpaMetamodelMappingContext context = new JpaMetamodelMappingContext(metamodel);
+        Set<Metamodel> metamodels = new HashSet<>();
+        metamodels.add(metamodel);
+        JpaMetamodelMappingContext context = new JpaMetamodelMappingContext(metamodels);
         context.setInitialEntitySet(entitySources);
         context.initialize();
 
