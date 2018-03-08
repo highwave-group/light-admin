@@ -39,6 +39,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.config.PersistentEntityResourceAssemblerArgumentResolver;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
+import org.springframework.data.rest.webmvc.mapping.LinkCollector;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -126,6 +127,11 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         super.addArgumentResolvers(argumentResolvers);
         argumentResolvers.add(configurationHandlerMethodArgumentResolver());
+    }
+    
+    @Override
+    protected LinkCollector linkCollector() {
+    	return new LightAdminLinkCollector(persistentEntities(), selfLinkProvider(), associationLinks());
     }
 
     @SuppressWarnings("unchecked")
