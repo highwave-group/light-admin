@@ -62,15 +62,15 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
         return new DomainEntityLinks(globalAdministrationConfiguration(), backendIdConverterRegistry(), lightAdminConfiguration());
     }
 
-    @Bean
-    public DynamicRepositoryEntityLinks dynamicRepositoryEntityLinks() {
-        return DynamicRepositoryEntityLinks.wrap(super.entityLinks());
+    @Override
+    public DynamicRepositoryEntityLinks entityLinks() {
+        return new DynamicRepositoryEntityLinks(super.entityLinks());
     }
 
     @Bean
     public DynamicPersistentEntityResourceProcessor dynamicPersistentEntityResourceProcessor() {
         return new DynamicPersistentEntityResourceProcessor(globalAdministrationConfiguration(),
-        		fileResourceStorage(), dynamicRepositoryEntityLinks(), domainEntityLinks(),
+        		fileResourceStorage(), entityLinks(), domainEntityLinks(),
         		resourceMappings(), associationLinks());
     }
 
@@ -147,14 +147,7 @@ public class LightAdminRepositoryRestMvcConfiguration extends RepositoryRestMvcC
 
     private List<HandlerMethodArgumentResolver> decorateArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         List<HandlerMethodArgumentResolver> result = newLinkedList();
-        for (HandlerMethodArgumentResolver argumentResolver : argumentResolvers) {
-            if (isAssignableValue(PersistentEntityResourceAssemblerArgumentResolver.class, argumentResolver)) {
-                PersistentEntityResourceAssemblerArgumentResolver persistentEntityResourceAssemblerArgumentResolver = (PersistentEntityResourceAssemblerArgumentResolver) argumentResolver;
-                result.add(new DynamicPersistentEntityResourceAssemblerArgumentResolver(persistentEntityResourceAssemblerArgumentResolver));
-                continue;
-            }
-            result.add(argumentResolver);
-        }
+        result.addAll(argumentResolvers);
         return result;
     }
 
