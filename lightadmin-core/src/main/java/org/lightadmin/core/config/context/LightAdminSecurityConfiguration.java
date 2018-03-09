@@ -109,7 +109,9 @@ public class LightAdminSecurityConfiguration {
     public Filter filterSecurityInterceptor(AuthenticationManager authenticationManager) throws Exception {
         FilterSecurityInterceptor filter = new FilterSecurityInterceptor();
         filter.setAuthenticationManager(authenticationManager);
-        filter.setAccessDecisionManager(new AffirmativeBased(asList((AccessDecisionVoter) new RoleVoter())));
+        List<AccessDecisionVoter<?>> decisionVoters = asList((AccessDecisionVoter<?>) new RoleVoter());
+		AffirmativeBased accessDecisionManager = new AffirmativeBased(decisionVoters);
+		filter.setAccessDecisionManager(accessDecisionManager);
         filter.setSecurityMetadataSource(securityMetadataSource());
         filter.afterPropertiesSet();
         return filter;

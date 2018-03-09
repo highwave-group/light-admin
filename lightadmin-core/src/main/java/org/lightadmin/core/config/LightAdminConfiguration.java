@@ -27,6 +27,8 @@ public interface LightAdminConfiguration {
     String getApplicationUrl(String path);
 
     URI getApplicationRestBaseUrl();
+    
+    String getApplicationRestBasePath();
 
     boolean isSecurityEnabled();
 

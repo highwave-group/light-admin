@@ -24,11 +24,12 @@
             </div>
 
             <sec:authorize access="isAuthenticated()">
+            <sec:authentication var="principal" property="principal" />
                 <div class="welcome">
                     <a href="#" title="">
                         <img src="<light:url value='/images/userPic.png'/>" alt=""/></a>
                     <span>Hello, <c:choose>
-                        <c:when test="principal.username">
+                        <c:when test="${not empty principal.username}">
                             <sec:authentication property="principal.username"/>
                         </c:when>
                         <c:otherwise>

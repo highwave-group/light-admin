@@ -17,56 +17,43 @@ package org.lightadmin.core.web.support;
 
 import org.springframework.data.mapping.PersistentEntity;
 import org.springframework.data.mapping.PersistentProperty;
+import org.springframework.data.repository.support.Repositories;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
+import org.springframework.data.rest.core.mapping.ResourceMappings;
+import org.springframework.data.rest.webmvc.spi.BackendIdConverter;
+import org.springframework.data.rest.webmvc.support.PagingAndSortingTemplateVariables;
+import org.springframework.data.rest.webmvc.support.RepositoryEntityLinks;
 import org.springframework.data.util.DirectFieldAccessFallbackBeanWrapper;
 import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.Identifiable;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.LinkBuilder;
+import org.springframework.plugin.core.PluginRegistry;
 
 import java.io.Serializable;
 
+import static org.springframework.beans.PropertyAccessorFactory.forDirectFieldAccess;
+
 /**
- * TODO: Document me!
+ * {@link RepositoryEntityLinks} for <code>LightAdmin</code> that allows creation
+ * of links for entities that are new (having no <code>ID</code>) and also adds
+ * support for creating links for <code>File Properties</code>.
  *
  * @author Maxim Kharchenko (kharchenko.max@gmail.com)
+ * @author <a href="mailto:gazi.mr.rahman@gmail.com">Gazi Rahman</a>
  */
-public class DynamicRepositoryEntityLinks implements EntityLinks {
+public class DynamicRepositoryEntityLinks extends RepositoryEntityLinks implements EntityLinks {
 
-    private EntityLinks delegate;
 
-    private DynamicRepositoryEntityLinks(EntityLinks delegate) {
-        this.delegate = delegate;
+    public DynamicRepositoryEntityLinks(RepositoryEntityLinks delegate) {
+    	super(repositories(delegate), mappings(delegate), config(delegate), templateVariables(delegate), idConverters(delegate));
     }
 
-    public static DynamicRepositoryEntityLinks wrap(EntityLinks delegate) {
-        return new DynamicRepositoryEntityLinks(delegate);
-    }
-
-    public Link linkForFilePropertyLink(Object instance, PersistentProperty persistentProperty) {
-        PersistentEntity persistentEntity = persistentProperty.getOwner();
+	public Link linkForFilePropertyLink(Object instance,
+    		@SuppressWarnings("rawtypes") PersistentProperty persistentProperty) {
+        @SuppressWarnings("rawtypes")
+		PersistentEntity persistentEntity = persistentProperty.getOwner();
         Serializable id = idValue(instance, persistentEntity);
 
-        return delegate.linkForSingleResource(persistentEntity.getType(), id).slash(persistentProperty.getName()).slash("file").withSelfRel();
-    }
-
-    @Override
-    public boolean supports(Class<?> delimiter) {
-        return delegate.supports(delimiter);
-    }
-
-    @Override
-    public LinkBuilder linkFor(Class<?> type) {
-        return delegate.linkFor(type);
-    }
-
-    @Override
-    public LinkBuilder linkFor(Class<?> type, Object... parameters) {
-        return delegate.linkFor(type, parameters);
-    }
-
-    @Override
-    public Link linkToCollectionResource(Class<?> type) {
-        return delegate.linkToCollectionResource(type);
+        return super.linkForSingleResource(persistentEntity.getType(), id).slash(persistentProperty.getName()).slash("file").withSelfRel();
     }
 
     @Override
@@ -74,25 +61,32 @@ public class DynamicRepositoryEntityLinks implements EntityLinks {
         if (id == null) {
             return linkFor(type).slash("new").withSelfRel();
         }
-        return delegate.linkToSingleResource(type, id);
+        return super.linkToSingleResource(type, id);
     }
 
-    @Override
-    public Link linkToSingleResource(Identifiable<?> entity) {
-        return delegate.linkToSingleResource(entity);
-    }
-
-    @Override
-    public LinkBuilder linkForSingleResource(Class<?> type, Object id) {
-        return delegate.linkForSingleResource(type, id);
-    }
-
-    @Override
-    public LinkBuilder linkForSingleResource(Identifiable<?> entity) {
-        return delegate.linkForSingleResource(entity);
-    }
-
-    private Serializable idValue(Object instance, PersistentEntity persistentEntity) {
+    private Serializable idValue(Object instance,
+    		@SuppressWarnings("rawtypes") PersistentEntity persistentEntity) {
         return (Serializable) new DirectFieldAccessFallbackBeanWrapper(instance).getPropertyValue(persistentEntity.getIdProperty().getName());
     }
+
+    private static Repositories repositories(RepositoryEntityLinks delegate) {
+		return (Repositories) forDirectFieldAccess(delegate).getPropertyValue("repositories");
+	}
+
+	@SuppressWarnings("unchecked")
+	private static PluginRegistry<BackendIdConverter, Class<?>> idConverters(RepositoryEntityLinks delegate) {
+		return (PluginRegistry<BackendIdConverter, Class<?>>) forDirectFieldAccess(delegate).getPropertyValue("idConverters");
+	}
+
+	private static PagingAndSortingTemplateVariables templateVariables(RepositoryEntityLinks delegate) {
+		return (PagingAndSortingTemplateVariables) forDirectFieldAccess(delegate).getPropertyValue("templateVariables");
+	}
+
+	private static RepositoryRestConfiguration config(RepositoryEntityLinks delegate) {
+		return (RepositoryRestConfiguration) forDirectFieldAccess(delegate).getPropertyValue("config");
+	}
+
+	private static ResourceMappings mappings(RepositoryEntityLinks delegate) {
+		return (ResourceMappings) forDirectFieldAccess(delegate).getPropertyValue("mappings");
+	}
 }
