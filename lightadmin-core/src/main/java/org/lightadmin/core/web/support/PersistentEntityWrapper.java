@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This class is moved out of {@link DynamicPersistentEntityResourceProcessor}
  * so that it can be used in other classes as well, like the {@link LightAdminLinkCollector}.
  * 
- * @author Gazi Rahman
+ * @author <a href="mailto:gazi.mr.rahman@gmail.com">Gazi Rahman</a>
  *
  */
 

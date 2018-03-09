@@ -15,12 +15,22 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.event.ValidatingRepositoryEventListener;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 import org.springframework.validation.Validator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * @author Gazi Rahman
+ * {@link RepositoryRestConfigurer} for <code>LightAdmin</code>.
+ * <p>
+ * Spring Data Web requires the configurations to be moved out of {@link RepositoryRestMvcConfiguration}
+ * and are configured through <code>RepositoryRestConfigurer</code> beans
+ * configured in the context. That's why these configurations are moved out from
+ * {@link LightAdminRepositoryRestMvcConfiguration} and placed in a separate
+ * <code>RepositoryRestConfigurer</code> class, which is then configured as a
+ * bean in the <code>LightAdminRepositoryRestMvcConfiguration</code>.
+ * 
+ * @author <a href="mailto:gazi.mr.rahman@gmail.com">Gazi Rahman</a>
  *
  */
 @Configuration
