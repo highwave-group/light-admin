@@ -493,12 +493,12 @@
             <distributionManagement>
                 <snapshotRepository>
                     <id>lightadmin-nexus</id>
-                    <url>http://lightadmin.org/nexus/content/repositories/snapshots</url>
+                    <url>https://lightadmin.org/nexus/content/repositories/snapshots</url>
                 </snapshotRepository>
 
                 <repository>
                     <id>lightadmin-nexus</id>
-                    <url>http://lightadmin.org/nexus/content/repositories/releases</url>
+                    <url>https://lightadmin.org/nexus/content/repositories/releases</url>
                 </repository>
             </distributionManagement>
         </profile>
